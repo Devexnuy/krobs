@@ -1,0 +1,450 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Krobs - Personal Onepage Responsive Wordpress Theme\n"
+"POT-Creation-Date: 2015-03-18 18:28+0700\n"
+"PO-Revision-Date: 2015-03-18 18:29+0700\n"
+"Last-Translator: \n"
+"Language-Team: CTHthemes <cththemes@gmail.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: ../../\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: krobs\n"
+
+#: krobs/comments.php:20
+#, php-format
+msgid "Comments <span>( %d )</span>"
+msgstr ""
+
+#: krobs/comments.php:31
+msgid "Reply"
+msgstr ""
+
+#: krobs/comments.php:54
+msgid "<i class=\"fa fa-arrow-left\"></i> Previous"
+msgstr ""
+
+#: krobs/comments.php:55
+msgid "Next <i class=\"fa fa-arrow-right\"></i>"
+msgstr ""
+
+#: krobs/comments.php:64
+msgid "Comments are closed."
+msgstr ""
+
+#: krobs/comments.php:71
+msgid " Your name and email address are required"
+msgstr ""
+
+#: krobs/comments.php:79
+msgid "Name * "
+msgstr ""
+
+#: krobs/comments.php:79
+msgid "Name "
+msgstr ""
+
+#: krobs/comments.php:86
+msgid "Email * "
+msgstr ""
+
+#: krobs/comments.php:86
+msgid "Email"
+msgstr ""
+
+#: krobs/comments.php:93
+msgid "Website"
+msgstr ""
+
+#: krobs/comments.php:103
+msgid "Leave a Reply"
+msgstr ""
+
+#: krobs/comments.php:104
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: krobs/comments.php:105
+msgid "Cancel Reply"
+msgstr ""
+
+#: krobs/comments.php:106
+msgid "Post Comment"
+msgstr ""
+
+#: krobs/comments.php:111
+msgid "Your comment here.."
+msgstr ""
+
+#: krobs/comments.php:117
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: krobs/comments.php:123
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
+"this account\">Log out?</a>"
+msgstr ""
+
+#: krobs/comments.php:130
+msgid "Your email address will not be published."
+msgstr ""
+
+#: krobs/comments.php:135
+#, php-format
+msgid ""
+"You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
+"and attributes: %s"
+msgstr ""
+
+#: krobs/content-audio.php:32 krobs/content-gallery.php:54
+#: krobs/content-quote.php:32 krobs/content-search.php:33
+#: krobs/content-video.php:36 krobs/content.php:58 krobs/single.php:81
+msgid "0 Comment"
+msgstr ""
+
+#: krobs/content-audio.php:32 krobs/content-gallery.php:54
+#: krobs/content-quote.php:32 krobs/content-search.php:33
+#: krobs/content-video.php:36 krobs/content.php:58 krobs/single.php:81
+msgid "1 Comment"
+msgstr ""
+
+#: krobs/content-audio.php:32 krobs/content-gallery.php:54
+#: krobs/content-quote.php:32 krobs/content-search.php:33
+#: krobs/content-video.php:36 krobs/content.php:58 krobs/single.php:81
+msgid "% Comments"
+msgstr ""
+
+#: krobs/content-audio.php:41 krobs/content-gallery.php:63
+#: krobs/content-quote.php:41 krobs/content-search.php:42
+#: krobs/content-video.php:45 krobs/content.php:67 krobs/single.php:90
+msgid "Posted by "
+msgstr ""
+
+#: krobs/content-audio.php:60 krobs/content-gallery.php:82
+#: krobs/content-page.php:32 krobs/content-quote.php:60
+#: krobs/content-search.php:62 krobs/content-video.php:64 krobs/content.php:86
+#: krobs/single.php:106
+msgid "Edit"
+msgstr ""
+
+#: krobs/content-audio.php:65 krobs/content-gallery.php:87
+#: krobs/content-page.php:37 krobs/content-quote.php:65
+#: krobs/content-search.php:67 krobs/content-video.php:69 krobs/content.php:91
+#: krobs/single.php:114
+msgid "Pages:"
+msgstr ""
+
+#: krobs/content-audio.php:72 krobs/content-gallery.php:94
+#: krobs/content-quote.php:72 krobs/content-video.php:76 krobs/content.php:99
+msgid "Read more"
+msgstr ""
+
+#: krobs/content-none.php:18
+msgid "Nothing Found Here!"
+msgstr ""
+
+#: krobs/content-none.php:23
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: krobs/content-none.php:27
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: krobs/content-none.php:32
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: krobs/functions.php:65
+msgid "Main Sidebar"
+msgstr ""
+
+#: krobs/functions.php:67
+msgid "Appears in the sidebar section of the site."
+msgstr ""
+
+#: krobs/functions.php:75
+msgid "Page Sidebar"
+msgstr ""
+
+#: krobs/functions.php:77
+msgid "Appears in the sidebar section of the page template."
+msgstr ""
+
+#: krobs/functions.php:108
+msgid "Main Blog Navigation Menu"
+msgstr ""
+
+#: krobs/functions.php:109
+msgid "Home Page Navigation Menu"
+msgstr ""
+
+#: krobs/functions.php:110
+msgid "About Scroll Menu"
+msgstr ""
+
+#: krobs/functions.php:158
+#, php-format
+msgid "Archive by Category \"%s\""
+msgstr ""
+
+#: krobs/functions.php:159
+#, php-format
+msgid "Archive for \"%s\""
+msgstr ""
+
+#: krobs/functions.php:160
+#, php-format
+msgid "Search Results for \"%s\" Query"
+msgstr ""
+
+#: krobs/functions.php:161
+#, php-format
+msgid "Posts Tagged \"%s\""
+msgstr ""
+
+#: krobs/functions.php:162
+#, php-format
+msgid "Articles Posted by %s"
+msgstr ""
+
+#: krobs/functions.php:163
+#, php-format
+msgid "Archive: %s"
+msgstr ""
+
+#: krobs/functions.php:164
+msgid "404 Error"
+msgstr ""
+
+#: krobs/functions.php:228
+msgid "Page Not Found"
+msgstr ""
+
+#: krobs/functions.php:359
+msgctxt "Previous post link"
+msgid " &larr; Prev"
+msgstr ""
+
+#: krobs/functions.php:362
+msgctxt "Next post link"
+msgid "Next &rarr;"
+msgstr ""
+
+#: krobs/functions.php:387
+#, php-format
+msgid "<cite class=\"fn\">%s</cite>"
+msgstr ""
+
+#: krobs/functions.php:392
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: krobs/functions.php:398
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: krobs/functions.php:402
+msgid "(Edit)"
+msgstr ""
+
+#: krobs/functions.php:441 krobs/functions.php:444 krobs/functions.php:514
+#: krobs/functions.php:517
+msgid "Section ID"
+msgstr ""
+
+#: krobs/functions.php:449
+msgid "Youtube Video ID"
+msgstr ""
+
+#: krobs/functions.php:452
+msgid "Your Youtube Video ID. Will use in Home Slide Video BG layout only"
+msgstr ""
+
+#: krobs/functions.php:457
+msgid "Slideshow Images"
+msgstr ""
+
+#: krobs/functions.php:460
+msgid ""
+"Slideshow Images. Will use in Home Slide Slideshow and Home Slide Animated "
+"Slideshow layout"
+msgstr ""
+
+#: krobs/functions.php:465 krobs/functions.php:486
+msgid "Section Layout"
+msgstr ""
+
+#: krobs/functions.php:468 krobs/functions.php:489
+msgid "Default"
+msgstr ""
+
+#: krobs/functions.php:470
+msgid "Home Slide"
+msgstr ""
+
+#: krobs/functions.php:471
+msgid "Home Slide Slideshow"
+msgstr ""
+
+#: krobs/functions.php:472
+msgid "Home Slide Animated Slideshow"
+msgstr ""
+
+#: krobs/functions.php:473
+msgid "Home Slide Video BG"
+msgstr ""
+
+#: krobs/functions.php:474
+msgid "About Slide"
+msgstr ""
+
+#: krobs/functions.php:475
+msgid "Portfolio Slide"
+msgstr ""
+
+#: krobs/functions.php:476
+msgid "Contact Slide"
+msgstr ""
+
+#: krobs/functions.php:477
+msgid "Swiper Slide"
+msgstr ""
+
+#: krobs/functions.php:480 krobs/functions.php:508
+msgid "Select one of the pre made page sections or using default"
+msgstr ""
+
+#: krobs/functions.php:491
+msgid "Home Slide Intro"
+msgstr ""
+
+#: krobs/functions.php:492
+msgid "Home Slide Footer"
+msgstr ""
+
+#: krobs/functions.php:494
+msgid "About Features"
+msgstr ""
+
+#: krobs/functions.php:495
+msgid "About Services"
+msgstr ""
+
+#: krobs/functions.php:496
+msgid "About Facts"
+msgstr ""
+
+#: krobs/functions.php:497
+msgid "About Twitter"
+msgstr ""
+
+#: krobs/functions.php:498
+msgid "About Resume"
+msgstr ""
+
+#: krobs/functions.php:499
+msgid "About Testimonials"
+msgstr ""
+
+#: krobs/functions.php:500
+msgid "About Clients"
+msgstr ""
+
+#: krobs/functions.php:502
+msgid "Contact Form"
+msgstr ""
+
+#: krobs/functions.php:503
+msgid "Contact Social"
+msgstr ""
+
+#: krobs/functions.php:505
+msgid "Portfolio Subscribe"
+msgstr ""
+
+#: krobs/functions.php:506
+msgid "Portfolio Order"
+msgstr ""
+
+#: krobs/functions.php:522 krobs/functions.php:533
+msgid "Content Only"
+msgstr ""
+
+#: krobs/functions.php:525 krobs/functions.php:536
+msgid "No"
+msgstr ""
+
+#: krobs/functions.php:526 krobs/functions.php:537
+msgid "Yes"
+msgstr ""
+
+#: krobs/functions.php:528 krobs/functions.php:539
+msgid "Set this to Yes if you don't want output column layout mockup"
+msgstr ""
+
+#: krobs/functions.php:630
+msgid "Install Required Plugins"
+msgstr ""
+
+#: krobs/functions.php:631
+msgid "Install Plugins"
+msgstr ""
+
+#: krobs/functions.php:632
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: krobs/functions.php:633
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: krobs/functions.php:644
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: krobs/functions.php:645
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: krobs/functions.php:646
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: krobs/header.php:112
+msgid "BACK TO HOME"
+msgstr ""
+
+#: krobs/shortcodes.php:642
+msgid "More Twitts on "
+msgstr ""
+
+#: krobs/shortcodes.php:1063
+msgid "All"
+msgstr ""
+
+#: krobs/shortcodes.php:1131
+msgid "View"
+msgstr ""
+
+#: krobs/single.php:126
+msgid "Share : "
+msgstr ""
