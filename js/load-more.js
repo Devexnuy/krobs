@@ -2,13 +2,13 @@ jQuery(function($){
     if($( "#SW_single" ).length) {
         // Init swiper
         var swiper = new Swiper('.swiper-container');
-        swiper.slideTo($('.center-slide').index()); 
+        swiper.slideTo($('.center-slide').index());
     }
     if ( $( "#SW_master" ).length ) {
         var button;
-        $('.swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
+        $('#SW_master .swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
         // Create pagination loop
-        var id_loop = $('.swiper-slide-active #id_loop').html();
+        var id_loop = $('#SW_master .swiper-slide-active #id_loop').html();
         localStorage.setItem(id_loop, "2");
         localStorage.setItem("loop_active", id_loop);
         var loading = false;
@@ -39,7 +39,7 @@ jQuery(function($){
                     $.ajax(beloadmore.url, { data: data,
                         type: "POST",
                         beforeSend: function() {
-                            $('.swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/uploads/2016/12/ring-alt.gif" alt="h"></p>');
+                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/uploads/2016/12/ring-alt.gif" alt="h"></p>');
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             console.log(errorThrown);
@@ -48,7 +48,7 @@ jQuery(function($){
                             $('.loading-text').remove();
                             if( res.success) {
                                 console.log("Succes");
-                                $('.swiper-slide-active .load-more').before( res.data );
+                                $('#SW_master .swiper-slide-active .load-more').before( res.data );
                                 $('.krobs-post').addClass('post');
                                 localStorage.setItem(localStorage.getItem("loop_active"), (parseInt(localStorage.getItem(localStorage.getItem("loop_active"))) + 1));
                                 loading = false;
@@ -64,7 +64,7 @@ jQuery(function($){
             }
         });
         function getButton() {
-            return button = $('.swiper-slide-active .load-more');
+            return button = $('#SW_master .swiper-slide-active .load-more');
         }
     }
 });

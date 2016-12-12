@@ -16,7 +16,7 @@ function krobs_removeDemoModeLink() { // Be sure to rename this function to some
         remove_filter( 'plugin_row_meta', array( ReduxFrameworkPlugin::get_instance(), 'plugin_metalinks'), null, 2 );
     }
     if ( class_exists('ReduxFrameworkPlugin') ) {
-        remove_action('admin_notices', array( ReduxFrameworkPlugin::get_instance(), 'admin_notices' ) );    
+        remove_action('admin_notices', array( ReduxFrameworkPlugin::get_instance(), 'admin_notices' ) );
     }
 }
 add_action('init', 'krobs_removeDemoModeLink');
@@ -30,11 +30,11 @@ require_once dirname( __FILE__ ) . '/framework/twitterfeed/helper.php';
 require_once dirname( __FILE__ ) . '/shortcodes.php';
 
 /*  Add responsive container to embeds
-/* ------------------------------------ */ 
+/* ------------------------------------ */
 function alx_embed_html( $html ) {
     return '<div class="fitvids-container">' . $html . '</div>';
 }
- 
+
 add_filter( 'embed_oembed_html', 'alx_embed_html', 10, 3 );
 add_filter( 'video_embed_html', 'alx_embed_html' );
 
@@ -61,11 +61,11 @@ function krobs_register_sidebars(){
 
     register_sidebar( array(
         'name'          => __( 'Main Sidebar', 'krobs' ),
-        'id'            => 'sidebar-1',        
-        'description'   => __( 'Appears in the sidebar section of the site.', 'krobs' ),        
-        'before_widget' => '<div id="%1$s" class="widget %2$s">',        
-        'after_widget'  => '</div>',        
-        'before_title'  => '<h4>',        
+        'id'            => 'sidebar-1',
+        'description'   => __( 'Appears in the sidebar section of the site.', 'krobs' ),
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4>',
         'after_title'   => '</h4>',
     ) );
 
@@ -73,9 +73,9 @@ function krobs_register_sidebars(){
         'name'          => __( 'Page Sidebar', 'krobs' ),
         'id'            => 'sidebar-2',
         'description'   => __( 'Appears in the sidebar section of the page template.', 'krobs' ),
-        'before_widget' => '<div id="%1$s" class="widget cth %2$s">',        
-        'after_widget'  => '</div>',        
-        'before_title'  => '<h4>',        
+        'before_widget' => '<div id="%1$s" class="widget cth %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4>',
         'after_title'   => '</h4>',
     ) );
 
@@ -126,7 +126,7 @@ if (!function_exists('krobs_enqueue_admin_scripts')) {
     function krobs_enqueue_admin_scripts() {
         // wp_register_script('cththemes-import', get_template_directory_uri() . '/includes/cththemes-import.js', false, '1.0.0', true);
         // wp_enqueue_script('cththemes-import');
-        
+
         wp_enqueue_style('krobsadmin-styles', get_template_directory_uri() . '/inc/assets/admin_styles.css');
     }
 }
@@ -152,7 +152,7 @@ if(!function_exists('krobs_theme_scripts_styles')){
             'show_loader' => isset($theme_options['show_loader'])? $theme_options['show_loader']: 1,
             'show_menu_start' => isset($theme_options['show_menu_start'])? $theme_options['show_menu_start']:0,
         ));
-        
+
     	// wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/css/font-awesome.min.css');
         wp_enqueue_style( 'krobscss-reset', get_template_directory_uri().'/css/reset.css');
         wp_enqueue_style( 'krobscss-bootstrap', get_template_directory_uri().'/css/bootstrap.css');
@@ -163,7 +163,7 @@ if(!function_exists('krobs_theme_scripts_styles')){
         // wp_enqueue_style( 'YTPlayer-style', get_template_directory_uri().'/css/YTPlayer.css');
         wp_enqueue_style( 'krobscss-theme', get_stylesheet_uri(), array(), '2015-03-06');
         wp_enqueue_style( 'krobscss-custom', get_template_directory_uri().'/css/custom.css');
-        
+
         if($theme_options['override-preset'] === 'yes'){
             wp_enqueue_style( 'color', get_template_directory_uri().'/css/color.php?cl='.substr($theme_options['theme-color'], 1));
         }else{
@@ -208,7 +208,7 @@ if(!function_exists('krobs_breadcrumbs')){
                 printf($text['search'],get_search_query());
                 echo '</h2>';
                 echo '<div class="clearfix"></div>';
-                
+
             } elseif ( is_single() && !is_attachment() ) {
                 echo '<h2>';
                 the_title();
@@ -219,32 +219,32 @@ if(!function_exists('krobs_breadcrumbs')){
                     echo htmlspecialchars_decode($theme_options['blog_intro']);
                     echo '</p>';
                 }elseif($theme_options['single_intro_type'] === '2'){
-                    
+
                     the_excerpt();
-                    
-                } 
-                
+
+                }
+
             } elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
                 $post_type = get_post_type_object(get_post_type());
                 echo '<h2>';
                 echo esc_attr($post_type->labels->singular_name );
                 echo '</h2>';
                 echo '<div class="clearfix"></div>';
-                
+
             } elseif ( is_page() && !$post->post_parent ) {
                 echo '<h2>';
                 the_title();
                 echo '</h2>';
                 echo '<div class="clearfix"></div>';
-               
+
             } elseif ( is_page() && $post->post_parent ) {
                 echo '<h2>';
                 the_title();
                 echo '</h2>';
                 echo '<div class="clearfix"></div>';
-                
+
             }elseif ( is_404() ) {
-                
+
                 echo '<h2>';
                 echo esc_attr( $text['404'] );
                 echo '</h2>';
@@ -252,9 +252,9 @@ if(!function_exists('krobs_breadcrumbs')){
                 echo '<p>';
                 _e('Page Not Found','krobs');
                 echo '</p>';
-                
+
             }
-            
+
 
             if(is_archive()){
                 the_archive_title('<h2>','</h2><div class="clearfix"></div>');
@@ -267,13 +267,13 @@ if(!function_exists('krobs_breadcrumbs')){
                 }elseif($theme_options['archive_intro_type'] == '2'){
                     $description = get_the_archive_description();
                     if ( $description ) {
-                        
+
                         echo htmlspecialchars_decode($description );
-                        
+
                     }
                 }
-                
-            } 
+
+            }
         }
 
     }
@@ -319,7 +319,7 @@ function krobs_pagination($prev = 'Prev', $next = 'Next', $pages='') {
 		'current' 		=> max( 1, get_query_var('paged') ),
 		'total' 		=> $pages,
 		'prev_text' => __($prev,'krobs'),
-        'next_text' => __($next,'krobs'),		
+        'next_text' => __($next,'krobs'),
         'type'			=> 'list',
 		'end_size'		=> 3,
 		'mid_size'		=> 3
@@ -328,11 +328,11 @@ function krobs_pagination($prev = 'Prev', $next = 'Next', $pages='') {
     if($return){
         echo '<div class="pagination-holder">'.str_replace( "<ul class='page-numbers'>", '<ul class="pagination">', $return ).'</div>';
     }
-	
+
 }
 
 // function krobs_custom_img( $image_width = '', $image_height = '', $crop = false ,$thumb_size = '' ) {
- 
+
 //   global $post;
 
 //   if(empty($thumb_size)){
@@ -352,12 +352,12 @@ function krobs_pagination($prev = 'Prev', $next = 'Next', $pages='') {
 //   if($crop){
 //     $params['crop'] = true;
 //   }
-   
+
 //   $imgsrc = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID, '' ), $thumb_size );
 //   $custom_img_src = bfi_thumb( $imgsrc[0], $params );
-   
+
 //   return $custom_img_src;
-   
+
 // }
 
 //Get thumbnail url
@@ -388,7 +388,7 @@ function krobs_post_nav() {
       <li class="next">
         <?php next_post_link( '%link', _x( 'Next &rarr;', 'Next post link', 'krobs' ) ); ?>
       </li>
-    </ul>   
+    </ul>
 <?php
 }
 
@@ -420,7 +420,7 @@ function krobs_theme_comment($comment, $args, $depth) {
         </div>
 
         <?php comment_text(); ?>
-        
+
         <?php if ( $comment->comment_approved == '0' ) : ?>
             <em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.','krobs' ); ?></em>
             <br />
@@ -458,7 +458,7 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
 
     // Filter to Replace default css class for vc_row shortcode and vc_column
 
-    // add_filter('vc_shortcodes_css_class', 'custom_css_classes_for_vc_row_and_vc_column', 10, 2); 
+    // add_filter('vc_shortcodes_css_class', 'custom_css_classes_for_vc_row_and_vc_column', 10, 2);
 
     // Add new Param in Row
 
@@ -468,8 +468,8 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
                                   "heading" => __('Section ID', 'wpb'),
                                   "param_name" => "sec_id",
                                   "value" => "",
-                                  "description" => __("Section ID", "wpb"),   
-                                  "group" => 'Krobs Theme', 
+                                  "description" => __("Section ID", "wpb"),
+                                  "group" => 'Krobs Theme',
         ));
 
         vc_add_param('vc_row',array(
@@ -477,8 +477,8 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
                                   "heading" => __('Youtube Video ID', 'wpb'),
                                   "param_name" => "video_id",
                                   "value" => "",
-                                  "description" => __("Your Youtube Video ID. Will use in Home Slide Video BG layout only", "wpb"),   
-                                  "group" => 'Krobs Theme', 
+                                  "description" => __("Your Youtube Video ID. Will use in Home Slide Video BG layout only", "wpb"),
+                                  "group" => 'Krobs Theme',
         ));
 
         vc_add_param('vc_row',array(
@@ -486,16 +486,16 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
                                   "heading" => __('Slideshow Images', 'wpb'),
                                   "param_name" => "slideshow_imgs",
                                   "value" => "",
-                                  "description" => __("Slideshow Images. Will use in Home Slide Slideshow and Home Slide Animated Slideshow layout", "wpb"),   
-                                  "group" => 'Krobs Theme', 
+                                  "description" => __("Slideshow Images. Will use in Home Slide Slideshow and Home Slide Animated Slideshow layout", "wpb"),
+                                  "group" => 'Krobs Theme',
         ));
 
         vc_add_param('vc_row',array(
                                   "type" => "dropdown",
                                   "heading" => __('Section Layout', 'wpb'),
                                   "param_name" => "layout",
-                                  "value" => array(   
-                                                    __('Default', 'wpb') => 'default', 
+                                  "value" => array(
+                                                    __('Default', 'wpb') => 'default',
 
                                                     __('Home Slide', 'wpb') => 'home_slide',
                                                     __('Home Slide Slideshow', 'wpb') => 'home_slide_slideshow',
@@ -505,19 +505,19 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
                                                     __('Portfolio Slide', 'wpb') => 'folio_slide',
                                                     __('Contact Slide', 'wpb') => 'contact_slide',
                                                     __('Swiper Slide', 'wpb') => 'slide',
-                                                    
+
                                                   ),
-                                  "description" => __("Select one of the pre made page sections or using default", "wpb"),    
-                                  "group" => 'Krobs Theme',   
-                                ) 
+                                  "description" => __("Select one of the pre made page sections or using default", "wpb"),
+                                  "group" => 'Krobs Theme',
+                                )
         );
 
         vc_add_param('vc_row_inner',array(
                                   "type" => "dropdown",
                                   "heading" => __('Section Layout', 'wpb'),
                                   "param_name" => "layout",
-                                  "value" => array(   
-                                                    __('Default', 'wpb') => 'default', 
+                                  "value" => array(
+                                                    __('Default', 'wpb') => 'default',
 
                                                     __('Home Slide Intro', 'wpb') => 'home_slide_top',
                                                     __('Home Slide Footer', 'wpb') => 'home_slide_footer',
@@ -531,48 +531,48 @@ require_once get_template_directory() . '/vc_extend/vc_shortcodes.php';
                                                     __('About Clients','wpb') => 'about_clients',
 
                                                     __('Contact Form','wpb') => 'contact_form',
-                                                    __('Contact Social','wpb') => 'contact_social', 
+                                                    __('Contact Social','wpb') => 'contact_social',
 
-                                                    __('Portfolio Subscribe','wpb') => 'folio_subscribe', 
-                                                    __('Portfolio Order','wpb') => 'folio_order', 
+                                                    __('Portfolio Subscribe','wpb') => 'folio_subscribe',
+                                                    __('Portfolio Order','wpb') => 'folio_order',
                                                   ),
-                                  "description" => __("Select one of the pre made page sections or using default", "wpb"),   
-                                  "group" => 'Krobs Theme',    
-                                ) 
+                                  "description" => __("Select one of the pre made page sections or using default", "wpb"),
+                                  "group" => 'Krobs Theme',
+                                )
         );
-        
+
         vc_add_param('vc_row_inner',array(
                                   "type" => "textfield",
                                   "heading" => __('Section ID', 'wpb'),
                                   "param_name" => "sec_id",
                                   "value" => "",
-                                  "description" => __("Section ID", "wpb"),  
-                                  "group" => 'Krobs Theme',  
+                                  "description" => __("Section ID", "wpb"),
+                                  "group" => 'Krobs Theme',
         ));
 
         vc_add_param('vc_column',array(
                                   "type" => "dropdown",
                                   "heading" => __('Content Only', 'wpb'),
                                   "param_name" => "content_only",
-                                  "value" => array(   
-                                                    __('No', 'wpb') => 'no',  
-                                                    __('Yes', 'wpb') => 'yes',                                                                                
+                                  "value" => array(
+                                                    __('No', 'wpb') => 'no',
+                                                    __('Yes', 'wpb') => 'yes',
                                                   ),
-                                  "description" => __("Set this to Yes if you don't want output column layout mockup", "wpb"),    
-                                  "group" => 'Krobs Theme',   
-                                ) 
+                                  "description" => __("Set this to Yes if you don't want output column layout mockup", "wpb"),
+                                  "group" => 'Krobs Theme',
+                                )
         );
         vc_add_param('vc_column_inner',array(
                                   "type" => "dropdown",
                                   "heading" => __('Content Only', 'wpb'),
                                   "param_name" => "content_only",
-                                  "value" => array(   
-                                                    __('No', 'wpb') => 'no',  
-                                                    __('Yes', 'wpb') => 'yes',                                                                                
+                                  "value" => array(
+                                                    __('No', 'wpb') => 'no',
+                                                    __('Yes', 'wpb') => 'yes',
                                                   ),
-                                  "description" => __("Set this to Yes if you don't want output column layout mockup", "wpb"),    
-                                  "group" => 'Krobs Theme',   
-                                ) 
+                                  "description" => __("Set this to Yes if you don't want output column layout mockup", "wpb"),
+                                  "group" => 'Krobs Theme',
+                                )
         );
 
     }
@@ -622,7 +622,7 @@ add_action('tgmpa_register', 'krobs_register_required_plugins');
  * TGM_Plugin_Activation class constructor.
  */
 function krobs_register_required_plugins() {
-    
+
     /*
      * Array of plugin arrays. Required keys are name and slug.
      * If the source is NOT from the .org repo, then source is also required.
@@ -648,7 +648,7 @@ function krobs_register_required_plugins() {
              // If set, overrides default API URL and points to an external URL.
             'is_callable' => '',
              // If set, this callable will be be checked for availability to determine if a plugin is active.
-        ), 
+        ),
         array('name' => 'WPBakery Visual Composer',
              // The plugin name.
             'slug' => 'js_composer',
@@ -667,7 +667,7 @@ function krobs_register_required_plugins() {
              // If set, overrides default API URL and points to an external URL.
             'is_callable' => '',
              // If set, this callable will be be checked for availability to determine if a plugin is active.
-        ), 
+        ),
         array('name' => 'Rock Lobster Contact Form 7',
              // The plugin name.
             'slug' => 'contact-form-7',
@@ -705,7 +705,7 @@ function krobs_register_required_plugins() {
              // If set, overrides default API URL and points to an external URL.
             'is_callable' => '',
              // If set, this callable will be be checked for availability to determine if a plugin is active.
-        ), 
+        ),
         array('name' => 'Envato Wordpress Toolkit',
              // The plugin name.
             'slug' => 'envato-wordpress-toolkit',
@@ -725,9 +725,9 @@ function krobs_register_required_plugins() {
             'is_callable' => '',
              // If set, this callable will be be checked for availability to determine if a plugin is active.
         ),
-        
+
     );
-    
+
     /*
      * Array of configuration settings. Amend each line as needed.
      *
@@ -759,7 +759,7 @@ function krobs_register_required_plugins() {
         'message' => '',
          // Message to output right before the plugins table.
     );
-    
+
     tgmpa($plugins, $config);
 }
 
@@ -865,4 +865,30 @@ function df_disable_comments_admin_bar() {
 }
 add_action('init', 'df_disable_comments_admin_bar');
 
-
+/*
+ * Walker for custom main menu
+ */
+class Description_Walker extends Walker_Nav_Menu
+{
+    function start_el(&$output, $item, $depth, $args)
+    {
+        $classes = empty($item->classes) ? array () : (array) $item->classes;
+        $class_names = join(' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
+        !empty ( $class_names ) and $class_names = ' class="'. esc_attr( $class_names ) . ' swiper-slide"';
+        $output .= "<div id='menu-item-$item->ID' $class_names>";
+        $attributes  = '';
+        !empty( $item->attr_title ) and $attributes .= ' title="'  . esc_attr( $item->attr_title ) .'"';
+        !empty( $item->target ) and $attributes .= ' target="' . esc_attr( $item->target     ) .'"';
+        !empty( $item->xfn ) and $attributes .= ' rel="'    . esc_attr( $item->xfn        ) .'"';
+        !empty( $item->url ) and $attributes .= ' href="'   . esc_attr( $item->url        ) .'"';
+        $title = apply_filters( 'the_title', $item->title, $item->ID );
+        $item_output = $args->before
+        . "<a $attributes>"
+        . $args->link_before
+        . $title
+        . '</a></div>'
+        . $args->link_after
+        . $args->after;
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+}

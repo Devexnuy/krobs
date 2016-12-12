@@ -86,8 +86,8 @@ function initKrobs() {
         a.on('slideChangeStart', function () {
             jQuery(function($){
                 if ( $( "#SW_master" ).length ) {
-                    $('.swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
-                    var id_loop = $('.swiper-slide-active #id_loop').html();
+                    $('#SW_master .swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
+                    var id_loop = $('#SW_master .swiper-slide-active #id_loop').html();
                     localStorage.setItem(id_loop, "2");
                     localStorage.setItem("loop_active", id_loop);
                 }
@@ -139,6 +139,9 @@ function initKrobs() {
             jQuery("nav").removeClass("vis");
         }, 10);
         jQuery(".btn-menu-wrapper").addClass("nav-rotade");
+		var swiper_menu = new Swiper('.swiper-container-menu', {
+	        speed: 400
+	    });
     }
     function c() {
         jQuery("nav").addClass("vis");
@@ -407,7 +410,7 @@ function initKrobs() {
     jQuery(".clients-holder .prev-slide").click(function() {
         g.trigger("owl.prev");
     });
- 
+
     var h = jQuery(".about-image-slider");
     h.owlCarousel({
         navigation: false,
@@ -425,9 +428,9 @@ function initKrobs() {
         h.trigger("owl.prev");
     });
 	jQuery('.clients-holder').css({height: jQuery('.to-top-holder').outerHeight(true)});
-	
+
  	var prsls = jQuery(".rep-single-slider");
- 
+
     prsls.owlCarousel({
         navigation: false,
         pagination: false,
@@ -438,13 +441,13 @@ function initKrobs() {
         touchDrag: true,
         mouseDrag: true
     });
- 
+
 	jQuery(".slide-holder .next-slide").click(function() {
          prsls.trigger("owl.next");
     });
     jQuery(".slide-holder .prev-slide").click(function() {
          prsls.trigger("owl.prev");
- 	});	
+ 	});
 // twitter  ----------------------------------------
     if (jQuery("#twitter-feed").length) {
         // jQuery("#twitter-feed").tweet({
@@ -494,8 +497,8 @@ function initKrobs() {
     // jQuery("#contactform input, #contactform textarea").keyup(function() {
     //     jQuery("#message").slideUp(1500);
     // });
- 
-	
+
+
 // subscribe   ----------------------------------------
     // jQuery(".subscriptionForm").submit(function() {
     //     var a = jQuery("#subscriptionForm").val();
@@ -611,7 +614,7 @@ jQuery(window).load(function() {
                     });
                  	jQuery("#project-page-data").animate({
                         opacity: 1
-                    }, 400);            
+                    }, 400);
                 });
                 jQuery("#project-page-holder").slideUp(600, function() {
                     jQuery("#project-page-data").css("visibility", "visible");
@@ -776,7 +779,7 @@ jQuery(document).ready(function() {
     if(jQuery('.krobs-bg-player').size()> 0 ){
         //  definition of mobile browser------------------
 
-        var isMobile = { 
+        var isMobile = {
             Android: function() {
                 return navigator.userAgent.match(/Android/i);
             },
@@ -794,19 +797,19 @@ jQuery(document).ready(function() {
             },
             any: function() {
                 return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-            }       
+            }
         };
-        trueMobile = isMobile.any(); 
-        // if not mobile ------------------  
-        
-        
+        trueMobile = isMobile.any();
+        // if not mobile ------------------
+
+
         if (trueMobile == null){
             jQuery(".krobs-bg-player").mb_YTPlayer();
         }
         if (trueMobile){
                 jQuery('.mobile-bg').fadeIn(10);
                 jQuery('.krobs-bg-player').remove();
-        }   
+        }
     }
 
     jQuery('.transition-slider').superslides({
@@ -861,13 +864,12 @@ jQuery(document).ready(function($){
 	if(krobs_obj.show_menu_start == '1'){
 		var w_w = $(window).width();
 	    if(w_w >= 960 ) {
-	        $("nav").fadeIn(10); 
-	        setTimeout(function() { 
-	            $("nav").removeClass("vis"); 
-	        }, 10); 
-	        $(".btn-menu-wrapper").addClass("nav-rotade"); 
+	        $("nav").fadeIn(10);
+	        setTimeout(function() {
+	            $("nav").removeClass("vis");
+	        }, 10);
+	        $(".btn-menu-wrapper").addClass("nav-rotade");
 	    }
 	}
 	$(".wpcf7-text,.wpcf7-email,.wpcf7-textarea").click(function(){$(this).select();});
 });
-

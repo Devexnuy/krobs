@@ -9,8 +9,8 @@
  */
 
  ?>
-<?php 
-global $theme_options; 
+<?php
+global $theme_options;
 global $wp_query;
 
 ?>
@@ -23,12 +23,12 @@ global $wp_query;
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        
+
         <link rel="shortcut icon" href="<?php echo esc_url($theme_options['favicon']['url']);?>" type="image/x-icon"/>
         <?php    wp_head(); ?>
     </head>
 
-    <body <?php body_class( );?>>  
+    <body <?php body_class( );?>>
         <div id="main">
 
             <div class="nav-holder blog-bav">
@@ -44,7 +44,7 @@ global $wp_query;
                         <?php if(isset($theme_options['slogan']) && $theme_options['slogan'] != ''):?>
                             <h3 class="slogan"><em><?php echo esc_html($theme_options['slogan']);?></em></h3>
                         <?php endif;?>
-                    </a>               
+                    </a>
                 </div>
                 <!--nav button-->
                 <div class="btn-menu-wrapper elem call-menu transition2">
@@ -58,7 +58,7 @@ global $wp_query;
                     </div>
                 </div>
                 <!--template navigation-->
-                <nav class="vis"> 
+                <nav class="vis swiper-container-menu">
                 <?php
                     $defaults1= array(
                                     'theme_location'  => 'primary',
@@ -66,21 +66,21 @@ global $wp_query;
                                     'container'       => '',
                                     'container_class' => '',
                                     'container_id'    => '',
-                                    'menu_class'      => 'krobs_menu',
+                                    'menu_class'      => 'krobs_menu swiper-wrapper',
                                     'menu_id'         => '',
                                     'echo'            => true,
-                                    'walker'          => new Cth_Nav_Walker(),
+                                    'walker'          => new Description_Walker, // custom walker to replace li with div,
                                     'before'          => '',
                                     'after'           => '',
                                     'link_before'     => '<span class="transition"></span>',
                                     'link_after'      => '',
-                                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                                    'items_wrap'      => '<div id="%1$s" class="%2$s">%3$s</div>',
                                     'depth'           => 0,
                     );
                     if ( has_nav_menu( 'primary' ) ) {
                         wp_nav_menu( $defaults1 );
                     }
-                ?>         
+                ?>
                 </nav>
                 <div class="arrow-nav">
                     <a href="#" class="arrow-right transition2"><i class="fa fa-angle-right"></i></a>
@@ -98,7 +98,7 @@ global $wp_query;
                     <div class="page-title">
                         <div class="content">
                             <?php krobs_breadcrumbs();?>
-                            
+
                             <div class="clearfix"></div>
                             <div class="color-separator"></div>
                             <div class="clearfix"></div>
@@ -111,4 +111,3 @@ global $wp_query;
                 </div>
                 <div class="single-page">
                     <div class="content">
-

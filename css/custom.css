@@ -59,3 +59,14 @@ p.loading-text {
     font-size: 16px;
     margin: 0;
 }
+
+#menu-main-blog-navigation a {
+    color: #007BC9;
+    /* text-align: center; */
+}
+
+nav.swiper-container-menu.swiper-container-horizontal {
+
+    z-index: 10;
+    position: relative;
+}
