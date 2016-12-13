@@ -7,7 +7,7 @@
  * @copyright  Copyright ( C ) 2015 cththemes.com . All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
- 
+
 global $theme_options;
 ?>
 <div <?php post_class('krobs-post');?>>
@@ -28,9 +28,7 @@ global $theme_options;
 				$image_src = wp_get_attachment_image_src($img_id,'');
 			?>
 				<div class="item"><img src="<?php echo esc_url($image_src[0]); ?>" width="<?php echo esc_attr($image_src[1]); ?>" height="<?php echo esc_attr($image_src[2]); ?>" class="respimg res2" alt=""></div>
-
 			<?php $i++; } ?>
-
             </div>
         </div>
 		<?php endif; ?>
@@ -40,7 +38,11 @@ global $theme_options;
 		</div>
     <!-- Thumbnail goes here -->
 	<?php }elseif(has_post_thumbnail( )){ ?>
-        <?php the_post_thumbnail( 'home-thumbnail' ); ?>
+        <!-- Link to permalink for featured image -->
+        <a href="<?php the_permalink(); ?>">
+            <?php the_post_thumbnail( 'home-thumbnail' ); ?>
+        </a>
+        <!-- End . Link to permalink for featured image -->
 	<?php } ?>
     <!-- End . Thumbnail goes here -->
     </div>
