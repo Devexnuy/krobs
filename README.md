@@ -5,4 +5,5 @@ This is a WordPress theme named krobs for use with tiempo-mobil plugin.
 
 Antes de instalar primero debe instalar algunas dependencias para el correcto funcionamiento de este theme.
 
+    - Plugin WP: [Tiempo Mobil](https://github.com/Devexnuy/tiempo-mobil)
     - Plugin WP: Social Warfare
