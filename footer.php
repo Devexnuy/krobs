@@ -10,18 +10,15 @@
 
  global $theme_options ;
 
- ?>	
-
-
+ ?>
 	            </div><!-- end .content -->
 	        </div><!-- end .single-page -->
 	        <!--section contact social-->
-
 	    </div><!-- end .wrapper -->
-
-	   
 	</div><!-- End #main -->
-
+    <footer class="main-footer">
+        <p>Diario tiempo Digital.</p>
+    </footer>
     <?php wp_footer(); ?>
 </body>
 </html>

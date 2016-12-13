@@ -1,3 +1,16 @@
+// Mixins
+.box-shadow (@string) {
+	-webkit-box-shadow: @string;
+	-moz-box-shadow:    @string;
+	box-shadow:         @string;
+}
+// Colors
+@main-color: #007BC9;
+// Loader
+#jprePercentage {
+    background: @main-color !important;
+}
+// Sharing button on home
 .post-sharing {
     width: 60%;
     float: right;
@@ -5,5 +18,21 @@
         width: 40px;
         padding: 0 10px 10px;
         float: right;
+    }
+}
+// Main footer
+.main-footer {
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    position: fixed !important;
+    left: 0;
+    bottom: 0;
+    background: white;
+    color: @main-color;
+    font-weight: bold;
+    .box-shadow(0px -5px 10px rgba(107, 107, 107, 0.3));
+    p {
+        padding: 5px;
     }
 }
