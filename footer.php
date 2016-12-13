@@ -17,7 +17,7 @@
 	    </div><!-- end .wrapper -->
 	</div><!-- End #main -->
     <footer class="main-footer">
-        <p>Diario tiempo Digital.</p>
+        <p>Diario Tiempo Digital.</p>
     </footer>
     <?php wp_footer(); ?>
 </body>
