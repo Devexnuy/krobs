@@ -52,4 +52,11 @@ global $theme_options;
             <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a>
         <?php endif;?>
     </div>
+    <div class="post-sharing">
+        <div class="sharing-button">
+            <a href="#">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/more.png" alt="sharing button">
+            </a>
+        </div>
+    </div>
 </div>

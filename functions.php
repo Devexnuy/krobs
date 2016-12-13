@@ -163,6 +163,8 @@ if(!function_exists('krobs_theme_scripts_styles')){
         // wp_enqueue_style( 'YTPlayer-style', get_template_directory_uri().'/css/YTPlayer.css');
         wp_enqueue_style( 'krobscss-theme', get_stylesheet_uri(), array(), '2015-03-06');
         wp_enqueue_style( 'krobscss-custom', get_template_directory_uri().'/css/custom.css');
+        // Main file on construction
+        wp_enqueue_style('krobsless-main', get_stylesheet_directory_uri() . '/css/main.css');
 
         if($theme_options['override-preset'] === 'yes'){
             wp_enqueue_style( 'color', get_template_directory_uri().'/css/color.php?cl='.substr($theme_options['theme-color'], 1));
