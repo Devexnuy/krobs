@@ -79,6 +79,16 @@ function krobs_register_sidebars(){
         'after_title'   => '</h4>',
     ) );
 
+    register_sidebar( array(
+        'name'          => __( 'Ads', 'krobs' ),
+        'id'            => 'sidebar-3',
+        'description'   => __( 'Este widget aparece en la sección home.', 'krobs' ),
+        'before_widget' => '<div id="%1$s" class="widget cth %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4>',
+        'after_title'   => '</h4>',
+    ) );
+
 }
 
 add_action('widgets_init','krobs_register_sidebars' );
@@ -783,7 +793,13 @@ function be_ajax_load_more() {
     $loop = new WP_Query( $args );
     if( $loop->have_posts() ): while( $loop->have_posts() ): $loop->the_post();
         get_template_part( 'content');
-    endwhile; endif; wp_reset_postdata();
+    endwhile;
+        if ( is_active_sidebar( 'sidebar-3' ) ) {
+            dynamic_sidebar( 'sidebar-3' );
+        } else {
+            echo "<p>Active su widget.</p>";
+        }
+    endif; wp_reset_postdata();
     $data = ob_get_clean();
     wp_send_json_success( $data );
     wp_die();
@@ -894,3 +910,297 @@ class Description_Walker extends Walker_Nav_Menu
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
 }
+
+/**
+ * AJAX Single post next and previous post
+ * @link http://wordpress.stackexchange.com/questions/55259/get-previous-next-posts-by-post-id
+ */
+
+ function get_previous_post_id() {
+     $post_id = $_POST['post_id'];
+     // Get a global post reference since get_adjacent_post() references it
+     global $post;
+     // Store the existing post object for later so we don't lose it
+     $oldGlobal = $post;
+     // Get the post object for the specified post and place it in the global variable
+     $post = get_post( $post_id );
+     // Get the post object for the previous post
+     $previous_post = get_previous_post(true);
+     // Reset our global object
+     $post = $oldGlobal;
+     ob_start();
+     if (!empty($previous_post)) { ?>
+         <?php $args = array(
+             'posts_per_page' => 1,
+             'p'              => $previous_post->ID
+         );
+         $query = new WP_Query( $args ); ?>
+         <?php if ($query->have_posts()) : ?>
+             <div class="swiper-slide">
+                 <?php while ($query->have_posts()) : $query->the_post(); ?>
+                     <span class="single-id"><?php the_ID(); ?></span>
+                     <div <?php post_class('krobs-post');?>>
+                         <div class="post-media">
+                             <div class="shortcuts-icons">
+                                 <div class="home">
+                                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/home.png" alt="home button">
+                                     </a>
+                                 </div>
+                             </div>
+                         <?php if($gallery = get_post_gallery( get_the_ID(), false )){
+                             if(isset($gallery['ids'])) : ?>
+                                 <div class=" media-holder slide-holder no-margin">
+                                     <div class="customNavigation">
+                                         <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
+                                         <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
+                                     </div>
+                                     <div class="rep-single-slider owl-carousel">
+                                     <?php
+                                         $gallery_ids = $gallery['ids'];
+                                         $img_ids = explode(",",$gallery_ids);
+                                         $i=1;
+                                         foreach( $img_ids AS $img_id ){
+                                         $image_src = wp_get_attachment_image_src($img_id,'');
+                                     ?>
+                                         <div class="item"><img src="<?php echo esc_url($image_src[0]); ?>" width="<?php echo esc_attr($image_src[1]); ?>" height="<?php echo esc_attr($image_src[2]); ?>" class="respimg res2" alt=""></div>
+                                     <?php $i++; } ?>
+                                     </div>
+                                 </div>
+                             <?php endif; ?>
+                         <?php }elseif(get_post_meta(get_the_ID(), '_cmb_embed_video', true)!=""){ ?>
+                             <div class="video-container">
+                                     <?php echo wp_oembed_get(esc_url(get_post_meta(get_the_ID(), '_cmb_embed_video', true) )); ?>
+                             </div>
+                         <?php }elseif(has_post_thumbnail( )){ ?>
+                             <a href="<?php the_permalink();?>" class="fadelink">
+                                 <img src="<?php echo esc_url(krobs_thumbnail_url('full') );?>" class="respimg res2 transition" alt="<?php the_title( ); ?>"/>
+                             </a>
+                         <?php } ?>
+
+                         </div>
+                         <div class="post-title">
+                             <div class="post-meta">
+                                 <ul>
+                                     <li>
+                                         <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
+                                     </li>
+                                     <li>
+                                         <h6>
+                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
+                                         <?php echo get_the_category_list(', ');?> /
+                                         <?php the_tags('');?>
+                                         </h6>
+                                     </li>
+                                 </ul>
+                             </div>
+                         <?php if($theme_options['author_checkbox']==='1' || $theme_options['date_checkbox']==='1' || $theme_options['comment_checkbox']==='1' || $theme_options['tag_checkbox']==='1'):?>
+                             <div class="post-meta">
+                                 <ul>
+                                     <?php if($theme_options['date_checkbox']==='1') :?>
+                                     <li> <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
+                                     <?php endif;?>
+                                     <?php if($theme_options['author_checkbox']==='1' || $theme_options['cats_checkbox']==='1' || $theme_options['tag_checkbox']==='1') :?>
+                                     <li>
+                                         <h6>
+                                         <?php if($theme_options['author_checkbox']==='1') :?>
+                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
+                                         <?php endif;?>
+
+                                         <?php if($theme_options['cats_checkbox']==='1') :?>
+                                             <?php echo get_the_category_list(', ');?> /
+                                         <?php endif;?>
+                                         <?php if($theme_options['tag_checkbox']==='1') :?>
+                                             <?php the_tags('');?>
+                                         <?php endif;?>
+                                         </h6>
+                                     </li>
+                                     <?php endif;?>
+                                 </ul>
+                             </div>
+                         <?php endif;?>
+                             <div class=" clearfix"></div>
+                             <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+                                 <?php dynamic_sidebar( 'sidebar-1' ); ?>
+                             <?php else: ?>
+                                 <p>Active su widget.</p>
+                             <?php endif; ?>
+                             <h3><a href="<?php the_permalink();?>"><?php the_title();?></a> <?php edit_post_link( __( 'Edit', 'krobs' ), '<span class="edit-link">', '</span>' ); ?>	</h3>
+                         </div>
+                         <div class="post-body">
+                             <?php the_content();?>
+                             <?php
+                             wp_link_pages( array(
+                                     'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'krobs' ) . '</span>',
+                                     'after'       => '</div>',
+                                     'link_before' => '<span>',
+                                     'link_after'  => '</span>',
+                                 ) );
+                             ?>
+                         </div>
+                         <div class="clearfix"></div>
+                     </div>
+                     <div class="clearfix"></div>
+                 <?php endwhile; ?>
+                 <?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
+                     <?php dynamic_sidebar( 'sidebar-2' ); ?>
+                 <?php else: ?>
+                     <p>Active su widget.</p>
+                 <?php endif; ?>
+             </div>
+         <?php endif; ?>
+     <?php } else {
+
+     }
+     $data = ob_get_clean();
+     wp_send_json_success( $data );
+     wp_die();
+ }
+
+ function get_next_post_id() {
+     $post_id = $_POST['post_id'];
+     // Get a global post reference since get_adjacent_post() references it
+     global $post;
+     // Store the existing post object for later so we don't lose it
+     $oldGlobal = $post;
+     // Get the post object for the specified post and place it in the global variable
+     $post = get_post( $post_id );
+     // Get the post object for the previous post
+     $previous_post = get_next_post(true);
+     // Reset our global object
+     $post = $oldGlobal;
+     ob_start();
+     if (!empty($previous_post)) { ?>
+         <?php $args = array(
+             'posts_per_page' => 1,
+             'p'              => $previous_post->ID
+         );
+         $query = new WP_Query( $args ); ?>
+         <?php if ($query->have_posts()) : ?>
+             <div class="swiper-slide">
+                 <?php while ($query->have_posts()) : $query->the_post(); ?>
+                     <span class="single-id"><?php the_ID(); ?></span>
+                     <div <?php post_class('krobs-post');?>>
+                         <div class="post-media">
+                             <div class="shortcuts-icons">
+                                 <div class="home">
+                                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/home.png" alt="home button">
+                                     </a>
+                                 </div>
+                             </div>
+                         <?php if($gallery = get_post_gallery( get_the_ID(), false )){
+                             if(isset($gallery['ids'])) : ?>
+                                 <div class=" media-holder slide-holder no-margin">
+                                     <div class="customNavigation">
+                                         <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
+                                         <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
+                                     </div>
+                                     <div class="rep-single-slider owl-carousel">
+                                     <?php
+                                         $gallery_ids = $gallery['ids'];
+                                         $img_ids = explode(",",$gallery_ids);
+                                         $i=1;
+                                         foreach( $img_ids AS $img_id ){
+                                         $image_src = wp_get_attachment_image_src($img_id,'');
+                                     ?>
+                                         <div class="item"><img src="<?php echo esc_url($image_src[0]); ?>" width="<?php echo esc_attr($image_src[1]); ?>" height="<?php echo esc_attr($image_src[2]); ?>" class="respimg res2" alt=""></div>
+                                     <?php $i++; } ?>
+                                     </div>
+                                 </div>
+                             <?php endif; ?>
+                         <?php }elseif(get_post_meta(get_the_ID(), '_cmb_embed_video', true)!=""){ ?>
+                             <div class="video-container">
+                                     <?php echo wp_oembed_get(esc_url(get_post_meta(get_the_ID(), '_cmb_embed_video', true) )); ?>
+                             </div>
+                         <?php }elseif(has_post_thumbnail( )){ ?>
+                             <a href="<?php the_permalink();?>" class="fadelink">
+                                 <img src="<?php echo esc_url(krobs_thumbnail_url('full') );?>" class="respimg res2 transition" alt="<?php the_title( ); ?>"/>
+                             </a>
+                         <?php } ?>
+
+                         </div>
+                         <div class="post-title">
+                             <div class="post-meta">
+                                 <ul>
+                                     <li>
+                                         <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
+                                     </li>
+                                     <li>
+                                         <h6>
+                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
+                                         <?php echo get_the_category_list(', ');?> /
+                                         <?php the_tags('');?>
+                                         </h6>
+                                     </li>
+                                 </ul>
+                             </div>
+                         <?php if($theme_options['author_checkbox']==='1' || $theme_options['date_checkbox']==='1' || $theme_options['comment_checkbox']==='1' || $theme_options['tag_checkbox']==='1'):?>
+                             <div class="post-meta">
+                                 <ul>
+                                     <?php if($theme_options['date_checkbox']==='1') :?>
+                                     <li> <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
+                                     <?php endif;?>
+                                     <?php if($theme_options['author_checkbox']==='1' || $theme_options['cats_checkbox']==='1' || $theme_options['tag_checkbox']==='1') :?>
+                                     <li>
+                                         <h6>
+                                         <?php if($theme_options['author_checkbox']==='1') :?>
+                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
+                                         <?php endif;?>
+
+                                         <?php if($theme_options['cats_checkbox']==='1') :?>
+                                             <?php echo get_the_category_list(', ');?> /
+                                         <?php endif;?>
+                                         <?php if($theme_options['tag_checkbox']==='1') :?>
+                                             <?php the_tags('');?>
+                                         <?php endif;?>
+                                         </h6>
+                                     </li>
+                                     <?php endif;?>
+                                 </ul>
+                             </div>
+                         <?php endif;?>
+                             <div class=" clearfix"></div>
+                             <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+                                 <?php dynamic_sidebar( 'sidebar-1' ); ?>
+                             <?php else: ?>
+                                 <p>Active su widget.</p>
+                             <?php endif; ?>
+                             <h3><a href="<?php the_permalink();?>"><?php the_title();?></a> <?php edit_post_link( __( 'Edit', 'krobs' ), '<span class="edit-link">', '</span>' ); ?>	</h3>
+                         </div>
+                         <div class="post-body">
+                             <?php the_content();?>
+                             <?php
+                             wp_link_pages( array(
+                                     'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'krobs' ) . '</span>',
+                                     'after'       => '</div>',
+                                     'link_before' => '<span>',
+                                     'link_after'  => '</span>',
+                                 ) );
+                             ?>
+                         </div>
+                         <div class="clearfix"></div>
+                     </div>
+                     <div class="clearfix"></div>
+                 <?php endwhile; ?>
+                 <?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
+                     <?php dynamic_sidebar( 'sidebar-2' ); ?>
+                 <?php else: ?>
+                     <p>Active su widget.</p>
+                 <?php endif; ?>
+             </div>
+         <?php endif; ?>
+
+     <?php } else {
+
+     }
+     $data = ob_get_clean();
+     wp_send_json_success( $data );
+     wp_die();
+ }
+
+add_action( 'wp_ajax_get_previous_post_id', 'get_previous_post_id' );
+add_action( 'wp_ajax_nopriv_get_previous_post_id', 'get_previous_post_id' );
+
+add_action( 'wp_ajax_get_next_post_id', 'get_next_post_id' );
+add_action( 'wp_ajax_nopriv_get_next_post_id', 'get_next_post_id' );

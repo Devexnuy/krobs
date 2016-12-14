@@ -36,6 +36,7 @@ get_header(); ?>
                 <div class="swiper-slide center-slide">
     				<?php if(have_posts()) : ?>
 						<?php while(have_posts()) : the_post(); ?>
+							<span class="single-id dowloaded"><?php the_ID(); ?></span>
 							<div <?php post_class('krobs-post');?>>
 							    <div class="post-media">
 									<div class="shortcuts-icons">
@@ -103,6 +104,11 @@ get_header(); ?>
 									</div>
 								<?php endif;?>
 							        <div class=" clearfix"></div>
+									<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
+										<?php dynamic_sidebar( 'sidebar-2' ); ?>
+									<?php else: ?>
+										<p>Active su widget.</p>
+									<?php endif; ?>
 							        <h3><a href="<?php the_permalink();?>"><?php the_title();?></a> <?php edit_post_link( __( 'Edit', 'krobs' ), '<span class="edit-link">', '</span>' ); ?>	</h3>
 							    </div>
 							    <div class="post-body">
@@ -125,17 +131,15 @@ get_header(); ?>
 							<div class="clearfix"></div>
 						<?php endwhile; ?>
 					<?php endif; ?>
+					<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+						<?php dynamic_sidebar( 'sidebar-1' ); ?>
+					<?php else: ?>
+						<p>Active su widget.</p>
+					<?php endif; ?>
                 </div>
             </div>
         </div>
-        </div><!--end .span12||span8 -->
-    <?php if($sideBar === 'right_sidebar'):?>
-        <div class="span4">
-            <div class="sidebar">
-                <?php get_sidebar( );?>
-            </div>
-        </div><!--end .span4 -->
-    <?php endif; ?>
+		</div><!--end .span12||span8 -->
     </div><!--end .row-fluid -->
 
 <?php get_footer(); ?>

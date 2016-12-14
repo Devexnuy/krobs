@@ -18,7 +18,8 @@ get_header();
         $categories = get_categories( array(
             "hide_empty" => 1,
             "orderby"    => "name",
-            "order"      => "ASC"
+            "order"      => "ASC",
+            "include"    => "29224, 28740, 28743, 28, 28742, 18, 28033, 24, 22, 37543"
         ) ); ?>
         <?php foreach( $categories as $category ) : ?>
             <div class="swiper-slide post-listing">
@@ -33,6 +34,11 @@ get_header();
                     <?php while($query->have_posts()) : $query->the_post(); ?>
                         <?php get_template_part( 'content'); ?>
                     <?php endwhile; ?>
+                    <?php if ( is_active_sidebar( 'sidebar-3' ) ) : ?>
+                    	<?php dynamic_sidebar( 'sidebar-3' ); ?>
+                    <?php else: ?>
+                        <p>Active su widget.</p>
+                    <?php endif; ?>
                 <?php else: ?>
                     <?php get_template_part('content','none' ); ?>
                 <?php endif; ?>
