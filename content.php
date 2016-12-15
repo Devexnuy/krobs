@@ -15,10 +15,10 @@ global $theme_options;
     <?php if($gallery = get_post_gallery( get_the_ID(), false )){
 		if(isset($gallery['ids'])) : ?>
 		<div class=" media-holder slide-holder no-margin">
-            <div class="customNavigation">
+            <!-- <div class="customNavigation">
                 <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
                 <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
-            </div>
+            </div> -->
             <div class="rep-single-slider owl-carousel">
             <?php
 				$gallery_ids = $gallery['ids'];
@@ -40,23 +40,17 @@ global $theme_options;
 	<?php }elseif(has_post_thumbnail( )){ ?>
         <!-- Link to permalink for featured image -->
         <a href="<?php the_permalink(); ?>">
-            <?php the_post_thumbnail( 'home-thumbnail' ); ?>
+            <?php the_post_thumbnail( 'large' ); ?>
         </a>
         <!-- End . Link to permalink for featured image -->
 	<?php } ?>
     <!-- End . Thumbnail goes here -->
+    <div class="gradient"></div>
     </div>
     <div class="post-title">
         <h3 class="the-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
         <?php if($theme_options['date_checkbox']==='1') :?>
             <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a>
         <?php endif;?>
-    </div>
-    <div class="post-sharing">
-        <div class="sharing-button">
-            <a href="#">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/more.png" alt="sharing button">
-            </a>
-        </div>
     </div>
 </div>

@@ -6,82 +6,184 @@
 }
 // Colors
 @main-color: #007BC9;
+@bg-color: #eee;
 // Loader
 #jprePercentage {
     background: @main-color !important;
 }
-// Main header
-.blog-bav {
-	.box-shadow(0px 5px 10px rgba(107, 107, 107, 0.3));
-	.swiper-container-menu {
-		a {
-			color: @main-color;
-		}
-	}
-}
-// Sharing button on home
-.post-sharing {
-    width: 60%;
-    float: right;
-    .sharing-button {
-        width: 40px;
-        padding: 0 10px 10px;
-        float: right;
-    }
-}
-// content
-.post {
-	padding: 20px;
-	span.edit-link a {
-	    font-size: 15px;
-	    font-weight: normal;
-	    font-style: italic;
-	}
-	.post-media {
-		.shortcuts-icons {
-			width: auto;
-		    height: auto;
-		    position: absolute;
-		    z-index: 99;
-			right: -15px;
-			top: -30px;
-			.home {
-				width: 40px;
+#main {
+	background-color: @bg-color;
+	// Main header
+	.blog-bav {
+		.box-shadow(0px 5px 10px rgba(107, 107, 107, 0.3));
+		.swiper-container-menu {
+			a {
+				color: @main-color;
 			}
 		}
 	}
-	.post-meta {
-		ul {
-			li {
-				h6 {
-					color: @main-color !important;
+	#SW_master {
+		// content
+		.first-post {
+		    padding: 10px;
+			background-color: @main-color;
+			.post-title {
+				padding: 0 !important;
+				position: relative !important;
+				text-align: center !important;
+				width: 100% !important;
+			}
+			.post-media {
+				.gradient {
+				    display: none;
 				}
+			}
+		}
+		.post {
+		    padding: 5px;
+			span.edit-link a {
+			    font-size: 15px;
+			    font-weight: normal;
+			    font-style: italic;
+			}
+			.post-media {
+				width: 100%;
+    			float: left;
+    			height: auto;
+				.shortcuts-icons {
+					width: auto;
+				    height: auto;
+				    position: absolute;
+				    z-index: 99;
+					right: -15px;
+					top: -30px;
+					.home {
+						width: 40px;
+					}
+				}
+			}
+			.gradient {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,007bc9+100&0+43,0+43,1+100 */
+				background: -moz-linear-gradient(top,  rgba(125,185,232,0) 0%, rgba(71,158,219,0) 43%, rgba(0,123,201,1) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(71,158,219,0) 43%,rgba(0,123,201,1) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom,  rgba(125,185,232,0) 0%,rgba(71,158,219,0) 43%,rgba(0,123,201,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#007bc9',GradientType=0 ); /* IE6-9 */
+				z-index: 555;
+    			bottom: 0;
+			}
+			.post-title {
+				padding: 20px;
+				box-sizing: border-box;
+				text-align: left;
+				width: 90%;
+				height: auto;
+				overflow: auto;
+				margin: auto;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				z-index: 666;
 				a {
-					color: @main-color !important;
+					color: white;
+					text-shadow: 1px 1px 1px black;
 				}
+				.the-title {
+					a {
+						color: white;
+					    text-shadow: 1px 1px 1px black;
+					    font-size: 18px;
+					}
+				}
+			}
+			.post-meta {
+				ul {
+					li {
+						h6 {
+							color: @main-color !important;
+						}
+						a {
+							color: @main-color !important;
+						}
+					}
+				}
+			}
+			.post-body a {
+		    	/* float: left; */
+		    	margin-top: 0;
 			}
 		}
 	}
-	.post-body a {
-    	/* float: left; */
-    	margin-top: 0;
+	#SW_single {
+		// content
+		.post {
+			padding: 0;
+			span.edit-link a {
+			    font-size: 15px;
+			    font-weight: normal;
+			    font-style: italic;
+			}
+			.post-media {
+				.shortcuts-icons {
+					width: auto;
+				    height: auto;
+				    position: absolute;
+				    z-index: 99;
+					right: 5px;
+	    			top: -20px;
+					.home {
+						width: 40px;
+					}
+				}
+			}
+			.post-meta {
+				padding: 0 20px;
+				ul {
+					li {
+						h6 {
+							color: @main-color !important;
+						}
+						a {
+							color: @main-color !important;
+						}
+					}
+				}
+			}
+			.post-title {
+				h3 {
+					padding: 0 20px;
+				}
+			}
+			.post-body {
+			    padding: 0 20px;
+				a {
+					margin-top: 0;
+				}
+			}
+			.share-options {
+			    padding: 0 20px;
+			}
+		}
 	}
 }
+
 // Main footer
 .main-footer {
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-    position: fixed !important;
-    left: 0;
-    bottom: 0;
-    background: white;
-    color: @main-color;
-    font-weight: bold;
-    .box-shadow(0px -5px 10px rgba(107, 107, 107, 0.3));
-    p {
-        padding: 5px;
-    }
+	padding: 10px;
+	margin: 0;
+	width: 100%;
+	position: fixed !important;
+	left: 0;
+	bottom: 0;
+	background: white;
+	color: @main-color;
+	font-weight: bold;
+	.box-shadow(0px -5px 10px rgba(107, 107, 107, 0.3));
+	p {
+		padding: 5px;
+	}
 }
 
 // Ads

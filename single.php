@@ -49,10 +49,10 @@ get_header(); ?>
 							    <?php if($gallery = get_post_gallery( get_the_ID(), false )){
 									if(isset($gallery['ids'])) : ?>
 										<div class=" media-holder slide-holder no-margin">
-								            <div class="customNavigation">
+								            <!-- <div class="customNavigation">
 								                <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
 								                <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
-								            </div>
+								            </div> -->
 								            <div class="rep-single-slider owl-carousel">
 								            <?php
 												$gallery_ids = $gallery['ids'];
@@ -127,6 +127,25 @@ get_header(); ?>
 
 							    </div>
 							    <div class="clearfix"></div>
+								<?php if($theme_options['share_facebook'] === '1'||$theme_options['share_twitter'] === '1'||$theme_options['share_pinterest'] === '1'||$theme_options['share_googleplus'] === '1') :?>
+						            <div class="share-options">
+						                <h6><?php _e('Share : ','krobs');?></h6>
+						                <ul>
+						                    <?php if($theme_options['share_twitter'] === '1') :?>
+						                        <li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php the_title( );?>&amp;url=<?php the_permalink();?>" class="transition"><i class="fa fa-twitter"></i></a></li>
+						                    <?php endif;?>
+						                    <?php if($theme_options['share_facebook'] === '1') :?>
+						                        <li><a target="_blank" href="http://www.facebook.com/share.php?u=<?php the_permalink();?>" class="transition"><i class="fa fa-facebook"></i></a></li>
+						                    <?php endif;?>
+						                    <?php if($theme_options['share_pinterest'] === '1') :?>
+						                        <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php the_permalink();?>&amp;media=<?php echo esc_attr($theme_options['logo']['url'] );?>" class="transition"><i class="fa fa-pinterest"></i></a></li>
+						                    <?php endif;?>
+						                    <?php if($theme_options['share_googleplus'] === '1') :?>
+						                        <li><a target="_blank" href="https://plus.google.com/share?url=<?php the_permalink();?>" class="transition"><i class="fa fa-google-plus"></i></a></li>
+						                    <?php endif;?>
+						                </ul>
+						            </div>
+						        <?php endif;?>
 							</div>
 							<div class="clearfix"></div>
 						<?php endwhile; ?>
