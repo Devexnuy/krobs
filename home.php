@@ -14,20 +14,14 @@ get_header();
 <!-- Swiper -->
 <div class="swiper-container">
     <div class="swiper-wrapper" id="SW_master">
-        <?php
-        $categories = get_categories( array(
-            "hide_empty" => 1,
-            "orderby"    => "name",
-            "order"      => "ASC",
-            "include"    => "29224, 28740, 28743, 28, 28742, 18, 28033, 24, 22, 37543"
-        ) ); ?>
-        <?php foreach( $categories as $category ) : ?>
+        <?php $categories = array('29224', '28740', '28743', '28', '28742', '18', '28033', '24', '22', '37543'); ?>
+        <?php for ($i = 0; $i < 10; $i++) : ?>
             <div class="swiper-slide post-listing">
-                <span id="id_loop" style="display: none"><?php echo $category->term_id; ?></span>
-                <h2 style="margin-top: 80px; margin-bottom: 10px;"><?php echo $category->name; ?></h2>
+                <span id="id_loop" style="display: none"><?php echo $categories[$i]; ?></span>
+                <h2 style="margin-top: 80px; margin-bottom: 10px;"><?php echo get_cat_name($categories[$i]) ?></h2>
                 <?php $args = array(
                     "posts_per_page" => 4,
-                    "cat"            => $category->term_id
+                    "cat"            => $categories[$i]
                 );
                 $query = new WP_query ( $args ); ?>
                 <?php if($query->have_posts()) : ?>
@@ -44,7 +38,7 @@ get_header();
                 <?php endif; ?>
                 <?php wp_reset_query(); ?>
             </div>
-        <?php endforeach; ?>
+        <?php endfor; ?>
     </div>
 </div>
 <!-- end inner page -->
