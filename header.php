@@ -61,7 +61,7 @@ global $wp_query;
                 <nav class="vis swiper-container-menu">
                 <?php
                     $defaults1= array(
-                                    'theme_location'  => 'primary',
+                                    'theme_location'  => 'tmobil_menu',
                                     'menu'            => '',
                                     'container'       => '',
                                     'container_class' => '',
@@ -77,9 +77,9 @@ global $wp_query;
                                     'items_wrap'      => '<div id="%1$s" class="%2$s">%3$s</div>',
                                     'depth'           => 0,
                     );
-                    if ( has_nav_menu( 'primary' ) ) {
+                    if ( has_nav_menu( 'tmobil_menu' ) ) {
                         wp_nav_menu( $defaults1 );
-                    }
+                    } 
                 ?>
                 </nav>
                 <div class="arrow-nav">
