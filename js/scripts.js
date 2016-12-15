@@ -80,7 +80,7 @@ function initKrobs() {
         var z = document.getElementById("SW_master");
         if(z !== null) {
             z = z.childElementCount;
-            a.slideTo(Math.round(z/2));
+            a.slideTo(Math.round(0));
         }
         // Add handler that will be executed only once
         a.on('slideChangeStart', function () {
