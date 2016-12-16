@@ -7,11 +7,26 @@
 // Colors
 @main-color: #007BC9;
 @bg-color: #eee;
+@black: #151515;
 // Loader
 #jprePercentage {
     background: @main-color !important;
 }
+// swiper
+.swiper-slide {
+    background-color: white;
+}
+// Widgets
+.widget {
+    clear: both;
+	margin: 0;
+}
 #main {
+	.content {
+		width: 100%;
+	    background-color: white;
+	    padding-top: 80px;
+	}
 	background-color: @bg-color;
 	// Main header
 	.blog-bav {
@@ -23,33 +38,53 @@
 		}
 	}
 	#SW_master {
+		h2 {
+			font-size: 25px;
+    		font-weight: bold;
+		}
 		// content
 		.first-post {
-		    padding: 10px;
-			background-color: @main-color;
+		    padding: 0 !important;
+			background-color: #fff;
 			.post-title {
-				padding: 0 !important;
-				position: relative !important;
-				text-align: right !important;
-    			padding-right: 10px !important;
+				bottom: 0;
+				width: 100% !important;
+				.the-title {
+					margin-top: 0;
+					font-size: 20px;
+					a {
+						color: white !important;
+						text-shadow: 1px 1px 1px black !important;
+						font-size: 18px !important;
+					}
+				}
+				.author-post {
+					display: block !important;
+					color: white;
+					text-shadow: 1px 1px 1px black;
+					font-size: 14px;
+    				text-transform: uppercase;
+				}
+				padding: 20px !important;
+				position: absolute !important;
+				text-align: left !important;
 			}
 			.post-media {
-				.gradient {
-				    display: none;
-				}
+				width: 100% !important;
 			}
 		}
 		.post {
-		    padding: 5px;
+	        padding: 10px;
+		    border-bottom: 1px solid #dcdcdc;
 			span.edit-link a {
 			    font-size: 15px;
 			    font-weight: normal;
 			    font-style: italic;
 			}
 			.post-media {
-				width: 100%;
-    			float: left;
-    			height: auto;
+				width: 50%;
+			    float: left;
+			    height: auto;
 				.shortcuts-icons {
 					width: auto;
 				    height: auto;
@@ -62,41 +97,27 @@
 					}
 				}
 			}
-			.gradient {
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7db9e8+0,007bc9+100&0+43,0+43,1+100 */
-				background: -moz-linear-gradient(top,  rgba(125,185,232,0) 0%, rgba(71,158,219,0) 43%, rgba(0,123,201,1) 100%); /* FF3.6-15 */
-				background: -webkit-linear-gradient(top,  rgba(125,185,232,0) 0%,rgba(71,158,219,0) 43%,rgba(0,123,201,1) 100%); /* Chrome10-25,Safari5.1-6 */
-				background: linear-gradient(to bottom,  rgba(125,185,232,0) 0%,rgba(71,158,219,0) 43%,rgba(0,123,201,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#007bc9',GradientType=0 ); /* IE6-9 */
-				z-index: 555;
-    			bottom: 0;
-			}
 			.post-title {
-				padding: 20px;
+				padding: 10px;
 				box-sizing: border-box;
 				text-align: left;
-				width: 90%;
+				width: 50%;
 				height: auto;
-				overflow: auto;
 				margin: auto;
-				position: absolute;
-				left: 0;
-				bottom: 0;
-				z-index: 666;
-				a {
-					color: white;
-					text-shadow: 1px 1px 1px black;
-				}
 				.the-title {
+					margin-top: 0;
 					a {
-						color: white;
-					    text-shadow: 1px 1px 1px black;
-					    font-size: 18px;
+						color: @black;
+					    font-size: 16px;
 					}
 				}
+			}
+			.post-sharing {
+			    width: 20px;
+			    /* float: right; */
+			    position: absolute;
+			    bottom: 10px;
+			    right: 10px;
 			}
 			.post-meta {
 				ul {

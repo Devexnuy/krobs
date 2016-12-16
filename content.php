@@ -45,12 +45,16 @@ global $theme_options;
         <!-- End . Link to permalink for featured image -->
 	<?php } ?>
     <!-- End . Thumbnail goes here -->
-    <div class="gradient"></div>
     </div>
     <div class="post-title">
+        <h4 class="author-post" style="display:none"><?php echo get_the_author(); ?> - </h4>
         <h3 class="the-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h3>
-        <?php if($theme_options['date_checkbox']==='1') :?>
-            <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a>
-        <?php endif;?>
+    </div>
+    <div class="post-sharing">
+        <div class="sharing-button">
+            <a href="#">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/more.png" alt="sharing button">
+            </a>
+        </div>
     </div>
 </div>

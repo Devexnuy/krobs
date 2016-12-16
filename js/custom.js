@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
-    $( "#SW_master .swiper-slide" ).each(function( index ) {
-        $(this).children('div:first').addClass('first-post');
-    });
+    //$('#SW_master .swiper-slide div.post:nth-child(6n+3)').addClass('first-post');
     var myElem = document.getElementById('SW_master');
     if (myElem !== null) {
         var a = new Swiper(".swiper-container");

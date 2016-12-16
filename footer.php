@@ -17,7 +17,11 @@
 	    </div><!-- end .wrapper -->
 	</div><!-- End #main -->
     <footer class="main-footer">
-        <p>Diario Tiempo Digital.</p>
+        <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+            <?php dynamic_sidebar( 'sidebar-1' ); ?>
+        <?php else: ?>
+            <p>Active su widget: Publicidad No. 1.</p>
+        <?php endif; ?>
     </footer>
     <?php wp_footer(); ?>
 </body>

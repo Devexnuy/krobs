@@ -84,7 +84,9 @@ jQuery(function($){
             return $('#SW_single .swiper-slide-active .single-id').html();
         }
     }
+    // Loop home
     if ( $( "#SW_master" ).length ) {
+        $('#SW_master .swiper-slide div.post:nth-child(6n+3)').addClass('first-post');
         var button;
         $('#SW_master .swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
         // Create pagination loop
@@ -97,7 +99,7 @@ jQuery(function($){
             reallow: function() {
                 scrollHandling.allow = true;
             },
-            delay: 500 //(milliseconds) adjust to the highest acceptable value
+            delay: 1000 //(milliseconds) adjust to the highest acceptable value
         };
 
         $(window).scroll(function(){
@@ -107,7 +109,7 @@ jQuery(function($){
                 setTimeout(scrollHandling.reallow, scrollHandling.delay);
                 var offset = $(button).offset().top - $(window).scrollTop();
                 console.log(offset);
-                if(600 > offset) {
+                if(1000 > offset) {
                     loading = true;
                     var data = {
                         action: 'be_ajax_load_more',
@@ -127,9 +129,16 @@ jQuery(function($){
                         success: function(res) {
                             $('.loading-text').remove();
                             if( res.success) {
-                                console.log("Succes");
+                                // $( "#SW_master .swiper-slide" ).each(function( index ) {
+                                //     $(this).children('div.post:nth-child(6n+3)').addClass('first-post');
+                                //     console.log(index);
+                                //     console.log('Each dos');
+                                // });
+                                console.log('Success');
                                 $('#SW_master .swiper-slide-active .load-more').before( res.data );
                                 $('.krobs-post').addClass('post');
+                                //$('#SW_master .swiper-slide div.post:nth-child(6n+3)').removeClass('post');
+                                $('#SW_master .swiper-slide div.post:nth-child(6n+3)').addClass('first-post');
                                 localStorage.setItem(localStorage.getItem("loop_active"), (parseInt(localStorage.getItem(localStorage.getItem("loop_active"))) + 1));
                                 loading = false;
                             } else {

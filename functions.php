@@ -787,18 +787,22 @@ function be_ajax_load_more() {
     //$args['post_type'] = isset( $args['post_type'] ) ? esc_attr( $args['post_type'] ) : 'post';
     $args['paged'] = esc_attr( $_POST['page'] );
     //$args['post_status'] = 'publish';
-    $args['posts_per_page'] = 4;
+    $args['posts_per_page'] = 15;
     $args['cat'] = esc_attr($_POST['id_loop']);
     ob_start();
+    $post_number = 1;
     $loop = new WP_Query( $args );
     if( $loop->have_posts() ): while( $loop->have_posts() ): $loop->the_post();
         get_template_part( 'content');
-    endwhile;
-        if ( is_active_sidebar( 'sidebar-3' ) ) {
-            dynamic_sidebar( 'sidebar-3' );
-        } else {
-            echo "<p>Active su widget.</p>";
+        if ($post_number == 5 || $post_number == 10 || $post_number == 15) {
+            if ( is_active_sidebar( 'sidebar-2' ) ) {
+                dynamic_sidebar( 'sidebar-2' );
+            } else {
+                echo "<p>Active su widget: Publicidad No. 2.</p>";
+            }
         }
+        $post_number++;
+    endwhile;
     endif; wp_reset_postdata();
     $data = ob_get_clean();
     wp_send_json_success( $data );
