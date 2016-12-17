@@ -41,5 +41,12 @@ jQuery(document).ready(function($) {
                 }
             }
         });
+    } else {
+        $('.menu-item').click(function(e){
+            e.preventDefault();
+            var url = $(this).children('a').attr('href');
+            localStorage.setItem('url_menu', url);
+            location.replace(beloadmore.style);
+        });
     }
 });

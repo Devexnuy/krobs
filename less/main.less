@@ -21,13 +21,64 @@
     clear: both;
 	margin: 0;
 }
+// Slick adition styles
+.slick-dots li.slick-active button:before {
+    color: @main-color !important;
+    font-size: 20px !important;
+}
+.slick-dots li button:before {
+	font-size: 10px !important;
+	color: @main-color !important;
+}
+// Carousel related post
+.related-posts {
+	padding: 20px;
+	text-align: left;
+	.line-blue {
+	    width: 100%;
+	    height: 2px;
+	    background-color: @main-color;
+	}
+	h4.title {
+	    font-size: 20px;
+	    text-align: left;
+	    padding: 10px 0;
+		display: inline-block;
+		position: relative;
+		top: -23px;
+		background-color: white;
+		padding-right: 10px;
+	}
+}
+.carousel-wrapper {
+    margin-bottom: 50px !important;
+	.carousel-item {
+		width: 180px;
+	    padding: 2.5px;
+		box-sizing: content-box;
+		a {
+			img {
+				width: 180px;
+				height: auto;
+			}
+		}
+		h4 {
+			width: 180px;
+			min-height: 60px;
+			padding: 5px;
+			background-color: #313131;
+			color: white;
+			font-size: 14px;
+		}
+	}
+}
 #main {
 	.content {
 		width: 100%;
 	    background-color: white;
 	    padding-top: 80px;
 	}
-	background-color: @bg-color;
+	background-color: white;
 	// Main header
 	.blog-bav {
 		.box-shadow(0px 5px 10px rgba(107, 107, 107, 0.3));
@@ -139,8 +190,11 @@
 	}
 	#SW_single {
 		// content
+		z-index: 99;
+	    top: -16px;
 		.post {
 			padding: 0;
+			margin: 0;
 			span.edit-link a {
 			    font-size: 15px;
 			    font-weight: normal;
@@ -152,8 +206,8 @@
 				    height: auto;
 				    position: absolute;
 				    z-index: 99;
-					right: 5px;
-	    			top: -20px;
+					right: 10px;
+    				top: 10px;
 					.home {
 						width: 40px;
 					}
@@ -167,7 +221,10 @@
 							color: @main-color !important;
 						}
 						a {
-							color: @main-color !important;
+							color: #ffffff !important;
+							display: inline-block;
+							background-color: @black;
+							padding: 5px;
 						}
 					}
 				}
@@ -175,6 +232,16 @@
 			.post-title {
 				h3 {
 					padding: 0 20px;
+					a {
+						font-size: 25px;
+					    font-weight: normal;
+					}
+				}
+				p.date-author {
+				    padding: 10px 0;
+				    margin: 10px 20px 30px;
+				    font-size: 16px;
+				    border-bottom: 1px solid #d0d0d0;
 				}
 			}
 			.post-body {
@@ -183,6 +250,16 @@
 					margin-top: 0;
 				}
 			}
+			.tags {
+                margin: 0 20px;
+                a {
+                    color: #ffffff !important;
+                    display: inline-block;
+                    background-color: #151515;
+                    padding: 5px;
+                    margin-bottom: 5px;
+                }
+            }
 			.share-options {
 			    padding: 0 20px;
 			}

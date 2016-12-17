@@ -157,6 +157,7 @@ if(!function_exists('krobs_theme_scripts_styles')){
         // wp_enqueue_script("fitvids", get_template_directory_uri()."/js/jquery.fitvids.js",array(),false,true);
         wp_enqueue_script("krobs-scripts", get_template_directory_uri()."/js/scripts.js",array(),false,true);
         wp_enqueue_script("custon", get_template_directory_uri()."/js/custom.js",array(),false,true);
+        wp_enqueue_script("krobs-slick", get_template_directory_uri()."/js/slick.min.js",array(),false,true);
 
         wp_localize_script('krobs-scripts', 'krobs_obj', array(
             'show_loader' => isset($theme_options['show_loader'])? $theme_options['show_loader']: 1,
@@ -175,6 +176,20 @@ if(!function_exists('krobs_theme_scripts_styles')){
         wp_enqueue_style( 'krobscss-custom', get_template_directory_uri().'/css/custom.css');
         // Main file on construction
         wp_enqueue_style('krobsless-main', get_stylesheet_directory_uri() . '/css/main.css');
+        // Slick slider
+        wp_enqueue_style('krobsless-slick', get_stylesheet_directory_uri() . '/css/slick.css');
+        wp_enqueue_style('krobsless-slick-theme', get_stylesheet_directory_uri() . '/css/slick-theme.css');
+
+        global $wp_query;
+        $args = array(
+            'nonce' => wp_create_nonce( 'be-load-more-nonce' ),
+            'url'   => admin_url( 'admin-ajax.php' ),
+            'query' => $wp_query->query,
+            'style' => get_site_url()
+        );
+
+        wp_enqueue_script( 'be-load-more', get_stylesheet_directory_uri() . '/js/load-more.js', array( 'jquery' ), '1.0', true );
+        wp_localize_script( 'be-load-more', 'beloadmore', $args );
 
         if($theme_options['override-preset'] === 'yes'){
             wp_enqueue_style( 'color', get_template_directory_uri().'/css/color.php?cl='.substr($theme_options['theme-color'], 1));
@@ -817,21 +832,6 @@ add_action( 'wp_ajax_nopriv_be_ajax_load_more', 'be_ajax_load_more' );
  *
  */
 
-function be_load_more_js() {
-    global $wp_query;
-    $args = array(
-        'nonce' => wp_create_nonce( 'be-load-more-nonce' ),
-        'url'   => admin_url( 'admin-ajax.php' ),
-        'query' => $wp_query->query,
-        'style' => get_site_url()
-    );
-
-    wp_enqueue_script( 'be-load-more', get_stylesheet_directory_uri() . '/js/load-more.js', array( 'jquery' ), '1.0', true );
-    wp_localize_script( 'be-load-more', 'beloadmore', $args );
-
-}
-
-add_action( 'wp_enqueue_scripts', 'be_load_more_js' );
 // Disable support for comments and trackbacks in post types
 function df_disable_comments_post_types_support() {
     $post_types = get_post_types();
@@ -942,134 +942,8 @@ class Description_Walker extends Walker_Nav_Menu
          <?php if ($query->have_posts()) : ?>
              <div class="swiper-slide">
                  <?php while ($query->have_posts()) : $query->the_post(); ?>
-                     <span class="single-id"><?php the_ID(); ?></span>
-                     <div <?php post_class('krobs-post');?>>
-                         <div class="post-media">
-                             <div class="shortcuts-icons">
-                                 <div class="home">
-                                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/home.png" alt="home button">
-                                     </a>
-                                 </div>
-                             </div>
-                         <?php if($gallery = get_post_gallery( get_the_ID(), false )){
-                             if(isset($gallery['ids'])) : ?>
-                                 <div class=" media-holder slide-holder no-margin">
-                                     <!-- <div class="customNavigation">
-                                         <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
-                                         <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
-                                     </div> -->
-                                     <div class="rep-single-slider owl-carousel">
-                                     <?php
-                                         $gallery_ids = $gallery['ids'];
-                                         $img_ids = explode(",",$gallery_ids);
-                                         $i=1;
-                                         foreach( $img_ids AS $img_id ){
-                                         $image_src = wp_get_attachment_image_src($img_id,'');
-                                     ?>
-                                         <div class="item"><img src="<?php echo esc_url($image_src[0]); ?>" width="<?php echo esc_attr($image_src[1]); ?>" height="<?php echo esc_attr($image_src[2]); ?>" class="respimg res2" alt=""></div>
-                                     <?php $i++; } ?>
-                                     </div>
-                                 </div>
-                             <?php endif; ?>
-                         <?php }elseif(get_post_meta(get_the_ID(), '_cmb_embed_video', true)!=""){ ?>
-                             <div class="video-container">
-                                     <?php echo wp_oembed_get(esc_url(get_post_meta(get_the_ID(), '_cmb_embed_video', true) )); ?>
-                             </div>
-                         <?php }elseif(has_post_thumbnail( )){ ?>
-                             <a href="<?php the_permalink();?>" class="fadelink">
-                                 <img src="<?php echo esc_url(krobs_thumbnail_url('full') );?>" class="respimg res2 transition" alt="<?php the_title( ); ?>"/>
-                             </a>
-                         <?php } ?>
-
-                         </div>
-                         <div class="post-title">
-                             <div class="post-meta">
-                                 <ul>
-                                     <li>
-                                         <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
-                                     </li>
-                                     <li>
-                                         <h6>
-                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
-                                         <?php echo get_the_category_list(', ');?> /
-                                         <?php the_tags('');?>
-                                         </h6>
-                                     </li>
-                                 </ul>
-                             </div>
-                         <?php if($theme_options['author_checkbox']==='1' || $theme_options['date_checkbox']==='1' || $theme_options['comment_checkbox']==='1' || $theme_options['tag_checkbox']==='1'):?>
-                             <div class="post-meta">
-                                 <ul>
-                                     <?php if($theme_options['date_checkbox']==='1') :?>
-                                     <li> <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['author_checkbox']==='1' || $theme_options['cats_checkbox']==='1' || $theme_options['tag_checkbox']==='1') :?>
-                                     <li>
-                                         <h6>
-                                         <?php if($theme_options['author_checkbox']==='1') :?>
-                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
-                                         <?php endif;?>
-
-                                         <?php if($theme_options['cats_checkbox']==='1') :?>
-                                             <?php echo get_the_category_list(', ');?> /
-                                         <?php endif;?>
-                                         <?php if($theme_options['tag_checkbox']==='1') :?>
-                                             <?php the_tags('');?>
-                                         <?php endif;?>
-                                         </h6>
-                                     </li>
-                                     <?php endif;?>
-                                 </ul>
-                             </div>
-                         <?php endif;?>
-                             <div class=" clearfix"></div>
-                             <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-                                 <?php dynamic_sidebar( 'sidebar-1' ); ?>
-                             <?php else: ?>
-                                 <p>Active su widget.</p>
-                             <?php endif; ?>
-                             <h3><a href="<?php the_permalink();?>"><?php the_title();?></a> <?php edit_post_link( __( 'Edit', 'krobs' ), '<span class="edit-link">', '</span>' ); ?>	</h3>
-                         </div>
-                         <div class="post-body">
-                             <?php the_content();?>
-                             <?php
-                             wp_link_pages( array(
-                                     'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'krobs' ) . '</span>',
-                                     'after'       => '</div>',
-                                     'link_before' => '<span>',
-                                     'link_after'  => '</span>',
-                                 ) );
-                             ?>
-                         </div>
-                         <div class="clearfix"></div>
-                         <?php if($theme_options['share_facebook'] === '1'||$theme_options['share_twitter'] === '1'||$theme_options['share_pinterest'] === '1'||$theme_options['share_googleplus'] === '1') :?>
-                             <div class="share-options">
-                                 <h6><?php _e('Share : ','krobs');?></h6>
-                                 <ul>
-                                     <?php if($theme_options['share_twitter'] === '1') :?>
-                                         <li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php the_title( );?>&amp;url=<?php the_permalink();?>" class="transition"><i class="fa fa-twitter"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_facebook'] === '1') :?>
-                                         <li><a target="_blank" href="http://www.facebook.com/share.php?u=<?php the_permalink();?>" class="transition"><i class="fa fa-facebook"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_pinterest'] === '1') :?>
-                                         <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php the_permalink();?>&amp;media=<?php echo esc_attr($theme_options['logo']['url'] );?>" class="transition"><i class="fa fa-pinterest"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_googleplus'] === '1') :?>
-                                         <li><a target="_blank" href="https://plus.google.com/share?url=<?php the_permalink();?>" class="transition"><i class="fa fa-google-plus"></i></a></li>
-                                     <?php endif;?>
-                                 </ul>
-                             </div>
-                         <?php endif;?>
-                     </div>
-                     <div class="clearfix"></div>
+                     <?php get_template_part( 'content', 'single'); ?>
                  <?php endwhile; ?>
-                 <?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
-                     <?php dynamic_sidebar( 'sidebar-2' ); ?>
-                 <?php else: ?>
-                     <p>Active su widget.</p>
-                 <?php endif; ?>
              </div>
          <?php endif; ?>
      <?php } else {
@@ -1102,134 +976,8 @@ class Description_Walker extends Walker_Nav_Menu
          <?php if ($query->have_posts()) : ?>
              <div class="swiper-slide">
                  <?php while ($query->have_posts()) : $query->the_post(); ?>
-                     <span class="single-id"><?php the_ID(); ?></span>
-                     <div <?php post_class('krobs-post');?>>
-                         <div class="post-media">
-                             <div class="shortcuts-icons">
-                                 <div class="home">
-                                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                                         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/home.png" alt="home button">
-                                     </a>
-                                 </div>
-                             </div>
-                         <?php if($gallery = get_post_gallery( get_the_ID(), false )){
-                             if(isset($gallery['ids'])) : ?>
-                                 <div class=" media-holder slide-holder no-margin">
-                                     <!-- <div class="customNavigation">
-                                         <a class="next-slide"><i class="fa fa-angle-right transition2"></i></a>
-                                         <a class="prev-slide"><i class="fa fa-angle-left transition2"></i></a>
-                                     </div> -->
-                                     <div class="rep-single-slider owl-carousel">
-                                     <?php
-                                         $gallery_ids = $gallery['ids'];
-                                         $img_ids = explode(",",$gallery_ids);
-                                         $i=1;
-                                         foreach( $img_ids AS $img_id ){
-                                         $image_src = wp_get_attachment_image_src($img_id,'');
-                                     ?>
-                                         <div class="item"><img src="<?php echo esc_url($image_src[0]); ?>" width="<?php echo esc_attr($image_src[1]); ?>" height="<?php echo esc_attr($image_src[2]); ?>" class="respimg res2" alt=""></div>
-                                     <?php $i++; } ?>
-                                     </div>
-                                 </div>
-                             <?php endif; ?>
-                         <?php }elseif(get_post_meta(get_the_ID(), '_cmb_embed_video', true)!=""){ ?>
-                             <div class="video-container">
-                                     <?php echo wp_oembed_get(esc_url(get_post_meta(get_the_ID(), '_cmb_embed_video', true) )); ?>
-                             </div>
-                         <?php }elseif(has_post_thumbnail( )){ ?>
-                             <a href="<?php the_permalink();?>" class="fadelink">
-                                 <img src="<?php echo esc_url(krobs_thumbnail_url('full') );?>" class="respimg res2 transition" alt="<?php the_title( ); ?>"/>
-                             </a>
-                         <?php } ?>
-
-                         </div>
-                         <div class="post-title">
-                             <div class="post-meta">
-                                 <ul>
-                                     <li>
-                                         <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
-                                     </li>
-                                     <li>
-                                         <h6>
-                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
-                                         <?php echo get_the_category_list(', ');?> /
-                                         <?php the_tags('');?>
-                                         </h6>
-                                     </li>
-                                 </ul>
-                             </div>
-                         <?php if($theme_options['author_checkbox']==='1' || $theme_options['date_checkbox']==='1' || $theme_options['comment_checkbox']==='1' || $theme_options['tag_checkbox']==='1'):?>
-                             <div class="post-meta">
-                                 <ul>
-                                     <?php if($theme_options['date_checkbox']==='1') :?>
-                                     <li> <a href="<?php echo get_day_link((int)get_the_time('Y' ), (int)get_the_time('m' ), (int)get_the_time('d' )); ?>"><?php the_time('d M');?></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['author_checkbox']==='1' || $theme_options['cats_checkbox']==='1' || $theme_options['tag_checkbox']==='1') :?>
-                                     <li>
-                                         <h6>
-                                         <?php if($theme_options['author_checkbox']==='1') :?>
-                                         <?php _e('Posted by ','krobs');?><?php the_author_posts_link( );?> /
-                                         <?php endif;?>
-
-                                         <?php if($theme_options['cats_checkbox']==='1') :?>
-                                             <?php echo get_the_category_list(', ');?> /
-                                         <?php endif;?>
-                                         <?php if($theme_options['tag_checkbox']==='1') :?>
-                                             <?php the_tags('');?>
-                                         <?php endif;?>
-                                         </h6>
-                                     </li>
-                                     <?php endif;?>
-                                 </ul>
-                             </div>
-                         <?php endif;?>
-                             <div class=" clearfix"></div>
-                             <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-                                 <?php dynamic_sidebar( 'sidebar-1' ); ?>
-                             <?php else: ?>
-                                 <p>Active su widget.</p>
-                             <?php endif; ?>
-                             <h3><a href="<?php the_permalink();?>"><?php the_title();?></a> <?php edit_post_link( __( 'Edit', 'krobs' ), '<span class="edit-link">', '</span>' ); ?>	</h3>
-                         </div>
-                         <div class="post-body">
-                             <?php the_content();?>
-                             <?php
-                             wp_link_pages( array(
-                                     'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'krobs' ) . '</span>',
-                                     'after'       => '</div>',
-                                     'link_before' => '<span>',
-                                     'link_after'  => '</span>',
-                                 ) );
-                             ?>
-                         </div>
-                         <div class="clearfix"></div>
-                         <?php if($theme_options['share_facebook'] === '1'||$theme_options['share_twitter'] === '1'||$theme_options['share_pinterest'] === '1'||$theme_options['share_googleplus'] === '1') :?>
-                             <div class="share-options">
-                                 <h6><?php _e('Share : ','krobs');?></h6>
-                                 <ul>
-                                     <?php if($theme_options['share_twitter'] === '1') :?>
-                                         <li><a target="_blank" href="https://twitter.com/intent/tweet?text=<?php the_title( );?>&amp;url=<?php the_permalink();?>" class="transition"><i class="fa fa-twitter"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_facebook'] === '1') :?>
-                                         <li><a target="_blank" href="http://www.facebook.com/share.php?u=<?php the_permalink();?>" class="transition"><i class="fa fa-facebook"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_pinterest'] === '1') :?>
-                                         <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php the_permalink();?>&amp;media=<?php echo esc_attr($theme_options['logo']['url'] );?>" class="transition"><i class="fa fa-pinterest"></i></a></li>
-                                     <?php endif;?>
-                                     <?php if($theme_options['share_googleplus'] === '1') :?>
-                                         <li><a target="_blank" href="https://plus.google.com/share?url=<?php the_permalink();?>" class="transition"><i class="fa fa-google-plus"></i></a></li>
-                                     <?php endif;?>
-                                 </ul>
-                             </div>
-                         <?php endif;?>
-                     </div>
-                     <div class="clearfix"></div>
+                     <?php get_template_part( 'content', 'single'); ?>
                  <?php endwhile; ?>
-                 <?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
-                     <?php dynamic_sidebar( 'sidebar-2' ); ?>
-                 <?php else: ?>
-                     <p>Active su widget.</p>
-                 <?php endif; ?>
              </div>
          <?php endif; ?>
 
@@ -1246,3 +994,44 @@ add_action( 'wp_ajax_nopriv_get_previous_post_id', 'get_previous_post_id' );
 
 add_action( 'wp_ajax_get_next_post_id', 'get_next_post_id' );
 add_action( 'wp_ajax_nopriv_get_next_post_id', 'get_next_post_id' );
+
+
+//Insert ads after second paragraph of single post content.
+
+add_filter( 'the_content', 'prefix_insert_post_ads' );
+
+function prefix_insert_post_ads( $content ) {
+    ob_start();
+    if (is_active_sidebar('sidebar-2')) {
+        dynamic_sidebar( 'sidebar-2' );
+    } else {
+        echo '<p>Active su widget: Publicidad No. 1.</p>';
+    }
+    $data = ob_get_clean();
+	$ad_code = $data;
+
+	if ( true ) {
+		return prefix_insert_after_paragraph( $ad_code, 2, $content );
+	}
+
+	return $content;
+}
+
+// Parent Function that makes the magic happen
+
+function prefix_insert_after_paragraph( $insertion, $paragraph_id, $content ) {
+	$closing_p = '</p>';
+	$paragraphs = explode( $closing_p, $content );
+	foreach ($paragraphs as $index => $paragraph) {
+
+		if ( trim( $paragraph ) ) {
+			$paragraphs[$index] .= $closing_p;
+		}
+
+		if ( $paragraph_id == $index + 1 ) {
+			$paragraphs[$index] .= $insertion;
+		}
+	}
+
+	return implode( '', $paragraphs );
+}

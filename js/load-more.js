@@ -1,4 +1,14 @@
 jQuery(function($){
+    $('body').find('.carousel-wrapper').slick({
+        swipe: false,
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 2,
+        centerMode: true,
+        variableWidth: true
+    });
+
     if($( '#SW_single' ).length) {
         var first_load = false;
         var auto_slide = false;
@@ -12,14 +22,13 @@ jQuery(function($){
                 console.log('next');
                 prevPost(getPostID());
             },
-            initialSlide: 1
+            initialSlide: 2,
+            observer: true,
         });
         var post_id = $('.swiper-slide .single-id').html();
 
         nextPost(post_id);
-
-        //setTimeout(function(){ prevPost(post_id); }, 3000);
-
+        //prevPost(post_id);
 
         function prevPost(post_id) {
             if (!downloaded[post_id] == true || first_load == false) {
@@ -32,16 +41,24 @@ jQuery(function($){
                 $.ajax(beloadmore.url, { data: data,
                     type: "POST",
                     beforeSend: function() {
-                        console.log('before send')
+                        // Before send
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(errorThrown);
                     },
                     success: function(res) {
-                        console.log('Se ha cargado.');
                         $('#SW_single .swiper-wrapper').append(res.data);
                         $('.krobs-post').addClass('post');
-                        swiper.onResize();
+                        //swiper.onResize();
+                        $(".carousel-wrapper").not('.slick-initialized').slick({
+                            swipe: false,
+                            dots: true,
+                            infinite: true,
+                            speed: 300,
+                            slidesToShow: 1,
+                            centerMode: true,
+                            variableWidth: true
+                        });
                     }
                 });
             } else {
@@ -59,18 +76,26 @@ jQuery(function($){
                 $.ajax(beloadmore.url, { data: data,
                     type: "POST",
                     beforeSend: function() {
-                        console.log('before send')
+                        // Before send
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         console.log(errorThrown);
                     },
                     success: function(res) {
-                        console.log('Se ha cargado. Next.');
                         $('#SW_single .swiper-wrapper').prepend(res.data);
                         $('.krobs-post').addClass('post');
                         swiper.onResize();
+                        $(".carousel-wrapper").not('.slick-initialized').slick({
+                            swipe: false,
+                            dots: true,
+                            infinite: true,
+                            speed: 300,
+                            slidesToShow: 1,
+                            centerMode: true,
+                            variableWidth: true
+                        });
                         if (auto_slide == false) {
-                            swiper.slideTo($('.center-slide').index());
+                            swiper.slideTo($('.center-slide').index(), 0);
                             auto_slide = true;
                         }
                     }
