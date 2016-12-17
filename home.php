@@ -19,8 +19,8 @@ get_header();
 <?php endif; ?>
 <div class="swiper-container">
     <div class="swiper-wrapper" id="SW_master">
-        <?php $categories = array('29224', '28740', '28743', '28', '28742', '18', '28033', '24', '22', '37543'); ?>
-        <?php for ($i = 0; $i < 10; $i++) : ?>
+        <?php $categories = array('29224', '28740'); ?>
+        <?php for ($i = 0; $i < count($categories); $i++) : ?>
             <div class="swiper-slide post-listing">
                 <span id="id_loop" style="display: none"><?php echo $categories[$i]; ?></span>
                 <h2 style="margin-bottom: 10px;"><?php echo get_cat_name($categories[$i]) ?></h2>
@@ -58,12 +58,53 @@ get_header();
                         <?php // End . Custom ads ?>
                         <?php $post_number++; ?>
                     <?php endwhile; ?>
+                    <span class="load-more" style="clear: both;display: block"></span>
                 <?php else: ?>
                     <?php get_template_part('content','none' ); ?>
                 <?php endif; ?>
                 <?php wp_reset_query(); ?>
             </div>
         <?php endfor; ?>
+        <div class="swiper-slide post-listing ajax cat-2">
+            <span class="cat-num">cat-2</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-3">
+            <span class="cat-num">cat-3</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-4">
+            <span class="cat-num">cat-4</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-5">
+            <span class="cat-num">cat-5</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-6">
+            <span class="cat-num">cat-6</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-7">
+            <span class="cat-num">cat-7</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-8">
+            <span class="cat-num">cat-8</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-9">
+            <span class="cat-num">cat-9</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-10">
+            <span class="cat-num">cat-10</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
+        <div class="swiper-slide post-listing ajax cat-11">
+            <span class="cat-num">cat-11</span>
+            <h2 class="loading-home">Cargando...</h2>
+        </div>
     </div>
 </div>
 <!-- end inner page -->

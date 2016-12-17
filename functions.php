@@ -989,11 +989,65 @@ class Description_Walker extends Walker_Nav_Menu
      wp_die();
  }
 
+function get_home_loop() {
+    $categories = array('29224', '28740', '28743', '28', '28742', '18', '28033', '24', '22', '37543');
+    $cat_position = $_POST['cat_position'];
+    ob_start(); ?>
+
+        <span id="id_loop" style="display: none"><?php echo $categories[$cat_position]; ?></span>
+        <h2 style="margin-bottom: 10px;"><?php echo get_cat_name($categories[$cat_position]) ?></h2>
+        <?php $args = array(
+            "posts_per_page" => 15,
+            "cat"            => $categories[$cat_position]
+        );
+        $query = new WP_query ( $args ); ?>
+        <?php $post_number = 1; ?>
+        <?php if($query->have_posts()) : ?>
+            <?php while($query->have_posts()) : $query->the_post(); ?>
+                <?php get_template_part( 'content'); ?>
+                <?php //Custom ads ?>
+                <?php if ($post_number == 2): ?>
+                    <?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
+                        <?php dynamic_sidebar( 'sidebar-2' ); ?>
+                    <?php else: ?>
+                        <p>Active su widget: Publicidad No. 2.</p>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($post_number == 8): ?>
+                    <?php if ( is_active_sidebar( 'sidebar-4' ) ) : ?>
+                        <?php dynamic_sidebar( 'sidebar-4' ); ?>
+                    <?php else: ?>
+                        <p>Active su widget: Publicidad No. 4.</p>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($post_number == 15): ?>
+                    <?php if ( is_active_sidebar( 'sidebar-3' ) ) : ?>
+                        <?php dynamic_sidebar( 'sidebar-3' ); ?>
+                    <?php else: ?>
+                        <p>Active su widget: Publicidad No. 3.</p>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php // End . Custom ads ?>
+                <?php $post_number++; ?>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <?php get_template_part('content','none' ); ?>
+        <?php endif; ?>
+        <?php wp_reset_query(); ?>
+    
+    <?php $data = ob_get_clean();
+    wp_send_json_success( $data );
+    wp_die();
+}
+
 add_action( 'wp_ajax_get_previous_post_id', 'get_previous_post_id' );
 add_action( 'wp_ajax_nopriv_get_previous_post_id', 'get_previous_post_id' );
 
 add_action( 'wp_ajax_get_next_post_id', 'get_next_post_id' );
 add_action( 'wp_ajax_nopriv_get_next_post_id', 'get_next_post_id' );
+
+add_action( 'wp_ajax_get_home_loop', 'get_home_loop' );
+add_action( 'wp_ajax_nopriv_get_home_loop', 'get_home_loop' );
 
 
 //Insert ads after second paragraph of single post content.

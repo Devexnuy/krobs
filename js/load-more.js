@@ -111,22 +111,22 @@ jQuery(function($){
     }
     // Loop home
     if ( $( "#SW_master" ).length ) {
-        $('#SW_master .swiper-slide div.post:nth-child(6n+3)').addClass('first-post');
+        // Add custom style even 6 post
+        $('div.krobs-post:nth-child(6n+3)').addClass('first-post');
+        // Register ID post an pagination
+        var froot_loops = {};
         var button;
-        $('#SW_master .swiper-slide-active').append( '<span class="load-more" style="clear: both;display: block"></span>' );
-        // Create pagination loop
-        var id_loop = $('#SW_master .swiper-slide-active #id_loop').html();
-        localStorage.setItem(id_loop, "2");
-        localStorage.setItem("loop_active", id_loop);
         var loading = false;
         var scrollHandling = {
             allow: true,
             reallow: function() {
                 scrollHandling.allow = true;
             },
-            delay: 1000 //(milliseconds) adjust to the highest acceptable value
+            delay: 500 //(milliseconds) adjust to the highest acceptable value
         };
-
+        function customStylepost() {
+            $('#SW_master .swiper-slide-active div.krobs-post:nth-child(6n+3)').addClass('first-post');
+        }
         $(window).scroll(function(){
             button = getButton();
             if( ! loading && scrollHandling.allow ) {
@@ -136,11 +136,18 @@ jQuery(function($){
                 console.log(offset);
                 if(1000 > offset) {
                     loading = true;
+                    var active_loop = $('#SW_master .swiper-slide-active #id_loop').html();
+                    if (!froot_loops[active_loop]) {
+                        froot_loops[active_loop] = 2;
+                    } else {
+                        froot_loops[active_loop] += 1;
+                    }
+                    console.log(active_loop + ' : '  +froot_loops[active_loop]);
                     var data = {
                         action: 'be_ajax_load_more',
                         nonce: beloadmore.nonce,
-                        page: parseInt(localStorage.getItem(localStorage.getItem("loop_active"))),
-                        id_loop: parseInt(localStorage.getItem("loop_active")),
+                        page: froot_loops[active_loop],
+                        id_loop: active_loop,
                         query: beloadmore.query
                     };
                     $.ajax(beloadmore.url, { data: data,
@@ -154,17 +161,10 @@ jQuery(function($){
                         success: function(res) {
                             $('.loading-text').remove();
                             if( res.success) {
-                                // $( "#SW_master .swiper-slide" ).each(function( index ) {
-                                //     $(this).children('div.post:nth-child(6n+3)').addClass('first-post');
-                                //     console.log(index);
-                                //     console.log('Each dos');
-                                // });
                                 console.log('Success');
                                 $('#SW_master .swiper-slide-active .load-more').before( res.data );
                                 $('.krobs-post').addClass('post');
-                                //$('#SW_master .swiper-slide div.post:nth-child(6n+3)').removeClass('post');
-                                $('#SW_master .swiper-slide div.post:nth-child(6n+3)').addClass('first-post');
-                                localStorage.setItem(localStorage.getItem("loop_active"), (parseInt(localStorage.getItem(localStorage.getItem("loop_active"))) + 1));
+                                setInterval(customStylepost, 10);
                                 loading = false;
                             } else {
                                 console.log(res);
