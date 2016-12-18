@@ -26,7 +26,7 @@
     <div class="social-lopez" style="display: none;">
         <div class="shared-counts">
             <div class="number">
-                5 Compartidos
+                <span>5</span> Compartidos
             </div>
             <div class="close">
                 <a class="close" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>

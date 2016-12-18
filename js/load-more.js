@@ -180,7 +180,6 @@ jQuery(function($){
             return button = $('#SW_master .swiper-slide-active .load-more');
         }
         function social_lopez() {
-            console.log('social lopez');
             // Close modal
             $('.close a').click(function (e) {
                 e.preventDefault();
@@ -190,6 +189,8 @@ jQuery(function($){
             // Open modal
             $('.sharing-button a').click(function (e) {
                 e.preventDefault();
+                var facebook_count = 0;
+                var google_count = 0;
                 // Get data
                 var category  = $('.swiper-slide-active .main-category').html();
                 var title     = $(this).parent(".sharing-button").parent('.post-sharing').prev('.post-title').children('.the-title').text();
@@ -214,7 +215,10 @@ jQuery(function($){
                     success: function(data){
                         var share_count = data.share;
                         if (share_count) {
+                            facebook_count = data.share.share_count;
+                            console.log(facebook_count);
                             $('.facebook .number-facebook').html(data.share.share_count);
+                            $('.shared-counts .number span').html(facebook_count + google_count);
                         } else {
                             $.post(
                                 'https://graph.facebook.com',
@@ -234,7 +238,9 @@ jQuery(function($){
                                         success: function(data){
                                             var share_count = data.share;
                                             if (share_count) {
+                                                facebook_count = data.share.share_count;
                                                 $('.facebook .number-facebook').html(data.share.share_count);
+                                                $('.shared-counts .number span').html(facebook_count + google_count);
                                             } else {
                                                 $.post(
                                                     'https://graph.facebook.com',
@@ -286,8 +292,9 @@ jQuery(function($){
                         'apiVersion': 'v1'
                     }),
                     success: function(response) {
+                        google_count = response.result.metadata.globalCounts.count;
+                        $('.shared-counts .number span').html(facebook_count + google_count);
                         $('.google .number-google').html(response.result.metadata.globalCounts.count);
-                        console.log(response.result.metadata.globalCounts.count);
                     },
                     error: function (e) {
                         console.log('error');
