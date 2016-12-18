@@ -995,7 +995,7 @@ function get_home_loop() {
     ob_start(); ?>
 
         <span id="id_loop" style="display: none"><?php echo $categories[$cat_position]; ?></span>
-        <h2 style="margin-bottom: 10px;"><?php echo get_cat_name($categories[$cat_position]) ?></h2>
+        <h2 style="margin-bottom: 10px;" class="main-category"><?php echo get_cat_name($categories[$cat_position]) ?></h2>
         <?php $args = array(
             "posts_per_page" => 15,
             "cat"            => $categories[$cat_position]
@@ -1034,10 +1034,32 @@ function get_home_loop() {
             <?php get_template_part('content','none' ); ?>
         <?php endif; ?>
         <?php wp_reset_query(); ?>
-    
+
     <?php $data = ob_get_clean();
     wp_send_json_success( $data );
     wp_die();
+}
+
+function get_post_social() {
+    $jsondata   = array();
+    $id_post = $_POST['id_post'];
+    $query_vars['p']              = $id_post;
+    $query_vars['posts_per_page'] = 1;
+    $posts = new WP_Query( $query_vars );
+    $GLOBALS['wp_query'] = $posts;
+    if ($posts->have_posts()) {
+        while ( $posts->have_posts() ) {
+            $posts->the_post();
+            $jsondata["title"]   = get_the_title();
+            $jsondata["image"]   = get_the_post_thumbnail( get_the_ID(), 'thumbnail' );
+
+        }
+    } else {
+
+    }
+    $jsondata["message"] = "Hola mundo";
+    echo json_encode($jsondata);
+    die();
 }
 
 add_action( 'wp_ajax_get_previous_post_id', 'get_previous_post_id' );

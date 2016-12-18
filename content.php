@@ -52,7 +52,7 @@ global $theme_options;
     </div>
     <div class="post-sharing">
         <div class="sharing-button">
-            <a href="#">
+            <a href="<?php the_ID(); ?>">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/more.png" alt="sharing button">
             </a>
         </div>

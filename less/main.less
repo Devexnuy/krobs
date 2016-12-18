@@ -288,7 +288,128 @@
 		padding: 5px;
 	}
 }
-
+// Social Lopez
+.social-lopez {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: white;
+    .box-shadow(0 -1px 0 500px rgba(0,0,0,0.5));
+    .shared-counts {
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        .number {
+            float: left;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+        }
+    }
+    .summary-post {
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
+        .featured-image {
+            float: left;
+            margin-bottom: 10px;
+            max-width: 150px;
+            height: auto;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .title {
+            float: left;
+            padding-left: 20px;
+            text-align: left;
+            max-width: 50%;
+            span {
+                color: @main-color;
+                font-size: 14px;
+                margin-bottom: 10px;
+                display: inline-block;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            h3 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+    .social-button {
+        >div {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            .left {
+                float: left;
+            }
+            .right {
+                float: right;
+            }
+        }
+        .facebook {
+            .btn-lopez, .logo {
+                background-color: #3b5998;
+            }
+            .number-facebook {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 10px;
+            }
+        }
+        .twitter {
+            .btn-lopez, .logo {
+                background-color: #00aced;
+            }
+            .number-twitter {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 10px;
+            }
+        }
+        .google {
+            .btn-lopez, .logo {
+                background-color: #F44336;
+            }
+            .number-google {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 10px;
+            }
+        }
+        .whatsapp {
+            .btn-lopez, .logo {
+                background-color: #25d366;
+            }
+            .number-whatsapp {
+                display: inline-block;
+                font-weight: bold;
+                margin-left: 10px;
+            }
+        }
+    }
+    .logo {
+        background-color: white;
+        display: inline-block;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        padding-top: 8px;
+        color: white;
+    }
+    .button.btn-lopez {
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+}
 // Ads
 .single-id {
 	display: none;

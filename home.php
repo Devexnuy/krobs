@@ -23,7 +23,7 @@ get_header();
         <?php for ($i = 0; $i < count($categories); $i++) : ?>
             <div class="swiper-slide post-listing">
                 <span id="id_loop" style="display: none"><?php echo $categories[$i]; ?></span>
-                <h2 style="margin-bottom: 10px;"><?php echo get_cat_name($categories[$i]) ?></h2>
+                <h2 style="margin-bottom: 10px;"  class="main-category"><?php echo get_cat_name($categories[$i]) ?></h2>
                 <?php $args = array(
                     "posts_per_page" => 15,
                     "cat"            => $categories[$i]

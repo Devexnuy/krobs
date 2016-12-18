@@ -14,16 +14,16 @@ jQuery(function($){
         var auto_slide = false;
         var downloaded = [];
         var swiper = new Swiper('.swiper-container', {
-            onSlidePrevStart(swiper) {
-                console.log('previous');
-                nextPost(getPostID());
-            },
-            onSlideNextStart(swiper) {
-                console.log('next');
-                prevPost(getPostID());
-            },
             initialSlide: 2,
-            observer: true,
+            observer: true
+        });
+        swiper.on('onSlidePrevStart', function(swiper) {
+            // Previous
+            nextPost(getPostID());
+        });
+        swiper.on('onSlideNextStart', function(swiper) {
+            // Next
+            prevPost(getPostID());
         });
         var post_id = $('.swiper-slide .single-id').html();
 
@@ -133,7 +133,6 @@ jQuery(function($){
                 scrollHandling.allow = false;
                 setTimeout(scrollHandling.reallow, scrollHandling.delay);
                 var offset = $(button).offset().top - $(window).scrollTop();
-                console.log(offset);
                 if(1000 > offset) {
                     loading = true;
                     var active_loop = $('#SW_master .swiper-slide-active #id_loop').html();
@@ -161,10 +160,10 @@ jQuery(function($){
                         success: function(res) {
                             $('.loading-text').remove();
                             if( res.success) {
-                                console.log('Success');
                                 $('#SW_master .swiper-slide-active .load-more').before( res.data );
                                 $('.krobs-post').addClass('post');
                                 setInterval(customStylepost, 10);
+                                social_lopez();
                                 loading = false;
                             } else {
                                 console.log(res);
@@ -179,6 +178,127 @@ jQuery(function($){
         });
         function getButton() {
             return button = $('#SW_master .swiper-slide-active .load-more');
+        }
+        function social_lopez() {
+            console.log('social lopez');
+            // Close modal
+            $('.close a').click(function (e) {
+                e.preventDefault();
+                $('.social-lopez').hide('slow');
+            });
+
+            // Open modal
+            $('.sharing-button a').click(function (e) {
+                e.preventDefault();
+                // Get data
+                var category  = $('.swiper-slide-active .main-category').html();
+                var title     = $(this).parent(".sharing-button").parent('.post-sharing').prev('.post-title').children('.the-title').text();
+                var permalink = $(this).parent(".sharing-button").parent('.post-sharing').prev('.post-title').prev('.post-media').find('a').attr('href');
+                var image     = $(this).parent(".sharing-button").parent('.post-sharing').prev('.post-title').prev('.post-media').find('a').find('img').attr('src')
+                // Set data
+                $('.title .category').html(category);
+                $('.title h3').html(title);
+                $('.featured-image img').attr('src', image);
+                // Facebook settings
+                $('.facebook a').attr('href', 'https://www.facebook.com/share.php?u=' + permalink);
+                var token = '1297971650284394|2449c08a82dd4bbe5fcfce1ccd49fc0d';
+                var url = permalink;
+                $.ajax({
+                    url: 'https://graph.facebook.com/v2.8/',
+                    dataType: 'jsonp',
+                    type: 'GET',
+                    data: {access_token: token, id: url},
+                    before: function () {
+                        console.log('before');
+                    },
+                    success: function(data){
+                        var share_count = data.share;
+                        if (share_count) {
+                            $('.facebook .number-facebook').html(data.share.share_count);
+                        } else {
+                            $.post(
+                                'https://graph.facebook.com',
+                                {
+                                    id: url,
+                                    scrape: true
+                                },
+                                function(response){
+                                    $.ajax({
+                                        url: 'https://graph.facebook.com/v2.8/',
+                                        dataType: 'jsonp',
+                                        type: 'GET',
+                                        data: {access_token: token, id: url},
+                                        before: function () {
+                                            console.log('before');
+                                        },
+                                        success: function(data){
+                                            var share_count = data.share;
+                                            if (share_count) {
+                                                $('.facebook .number-facebook').html(data.share.share_count);
+                                            } else {
+                                                $.post(
+                                                    'https://graph.facebook.com',
+                                                    {
+                                                        id: url,
+                                                        scrape: true
+                                                    },
+                                                    function(response){
+
+                                                    }
+                                                );
+                                            }
+
+                                        },
+                                        error: function(data){
+                                            console.log(data); // send the error notifications to console
+                                        }
+                                    });
+                                }
+                            );
+                        }
+
+                    },
+                    error: function(data){
+                        console.log(data); // send the error notifications to console
+                    }
+                });
+                // Twitter settings
+                $('.twitter a').attr('href', 'https://twitter.com/intent/tweet?text=' + permalink);
+                // Google + (experimental)
+                $('.google a').attr('href', 'https://plus.google.com/share?url=' + permalink);
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://clients6.google.com/rpc',
+                    processData: true,
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        'method': 'pos.plusones.get',
+                        'id': permalink,
+                        'params': {
+                            'nolog': true,
+                            'id': permalink,
+                            'source': 'widget',
+                            'userId': '@viewer',
+                            'groupId': '@self'
+                        },
+                        'jsonrpc': '2.0',
+                        'key': 'p',
+                        'apiVersion': 'v1'
+                    }),
+                    success: function(response) {
+                        $('.google .number-google').html(response.result.metadata.globalCounts.count);
+                        console.log(response.result.metadata.globalCounts.count);
+                    },
+                    error: function (e) {
+                        console.log('error');
+                        console.log(e);
+                    }
+                });
+                // Whats app settings
+                $('.whatsapp a').attr('href', 'whatsapp://send?text=' + title + ' ' + permalink);
+                // Show modal
+                $('.social-lopez').show('slow');
+            });
         }
     }
 });
