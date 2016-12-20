@@ -250,4 +250,7 @@ jQuery(document).ready(function($) {
     $('.tags a').click(function (e) {
         e.preventDefault();
     });
+    $('.post-meta ul li a').click(function (e) {
+        e.preventDefault();
+    });
 });

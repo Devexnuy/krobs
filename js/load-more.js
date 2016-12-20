@@ -3,11 +3,11 @@ jQuery(function($){
         swipe: false,
         dots: true,
         infinite: true,
-        speed: 300,
         slidesToShow: 2,
-        centerMode: true,
-        variableWidth: true
+        slidesToScroll: 2
     });
+
+    console.log('update');
 
     if($( '#SW_single' ).length) {
         var first_load = false;
@@ -20,10 +20,12 @@ jQuery(function($){
         swiper.on('onSlidePrevStart', function(swiper) {
             // Previous
             nextPost(getPostID());
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         });
         swiper.on('onSlideNextStart', function(swiper) {
             // Next
             prevPost(getPostID());
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         });
         var post_id = $('.swiper-slide .single-id').html();
 
@@ -54,10 +56,8 @@ jQuery(function($){
                             swipe: false,
                             dots: true,
                             infinite: true,
-                            speed: 300,
-                            slidesToShow: 1,
-                            centerMode: true,
-                            variableWidth: true
+                            slidesToShow: 2,
+                            slidesToScroll: 2
                         });
                     }
                 });
@@ -89,10 +89,8 @@ jQuery(function($){
                             swipe: false,
                             dots: true,
                             infinite: true,
-                            speed: 300,
-                            slidesToShow: 1,
-                            centerMode: true,
-                            variableWidth: true
+                            slidesToShow: 2,
+                            slidesToScroll: 2
                         });
                         if (auto_slide == false) {
                             swiper.slideTo($('.center-slide').index(), 0);
@@ -152,7 +150,7 @@ jQuery(function($){
                     $.ajax(beloadmore.url, { data: data,
                         type: "POST",
                         beforeSend: function() {
-                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/uploads/2016/12/ring-alt.gif" alt="h"></p>');
+                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/uploads/ring-alt.gif" alt="h"></p>');
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             console.log(errorThrown);
