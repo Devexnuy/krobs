@@ -150,7 +150,7 @@ jQuery(function($){
                     $.ajax(beloadmore.url, { data: data,
                         type: "POST",
                         beforeSend: function() {
-                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/uploads/ring-alt.gif" alt="h"></p>');
+                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/plugins/tiempo-mobil/img/ring-alt.gif" alt="h"></p>');
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             console.log(errorThrown);

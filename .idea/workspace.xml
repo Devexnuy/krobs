@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="526e508b-430e-4018-9987-d39b39ddb29f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css/main.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/custom.js" afterPath="$PROJECT_DIR$/js/custom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.php" afterPath="$PROJECT_DIR$/functions.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/load-more.js" afterPath="$PROJECT_DIR$/js/load-more.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/less/main.less" afterPath="$PROJECT_DIR$/less/main.less" />
     </list>
     <ignored path="krobs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/functions.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17034">
-              <caret line="1009" column="59" selection-start-line="1009" selection-start-column="59" selection-end-line="1009" selection-end-column="59" />
+              <caret line="1011" column="34" selection-start-line="1011" selection-start-column="34" selection-end-line="1011" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -92,10 +89,10 @@
         <entry file="file://$PROJECT_DIR$/js/load-more.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
-              <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+              <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
               <folding>
-                <element signature="e#7165#13752#0" expanded="false" />
-                <element signature="e#7239#7339#0" expanded="false" />
+                <element signature="e#7174#13761#0" expanded="false" />
+                <element signature="e#7248#7348#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -308,7 +305,7 @@
     <option name="totallyTimeSpent" value="52503000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13214286" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -399,8 +396,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#7165#13752#0" expanded="false" />
-            <element signature="e#7239#7339#0" expanded="false" />
+            <element signature="e#7174#13761#0" expanded="false" />
+            <element signature="e#7248#7348#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -452,7 +449,7 @@
     <entry file="file://$PROJECT_DIR$/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17034">
-          <caret line="1009" column="59" selection-start-line="1009" selection-start-column="59" selection-end-line="1009" selection-end-column="59" />
+          <caret line="1011" column="34" selection-start-line="1011" selection-start-column="34" selection-end-line="1011" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -496,10 +493,10 @@
     <entry file="file://$PROJECT_DIR$/js/load-more.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+          <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
           <folding>
-            <element signature="e#7165#13752#0" expanded="false" />
-            <element signature="e#7239#7339#0" expanded="false" />
+            <element signature="e#7174#13761#0" expanded="false" />
+            <element signature="e#7248#7348#0" expanded="false" />
           </folding>
         </state>
       </provider>
