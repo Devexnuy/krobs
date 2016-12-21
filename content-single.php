@@ -7,6 +7,11 @@
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/home.png" alt="home button">
                 </a>
             </div>
+            <div class="share">
+                <a href="#">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/share.png" alt="home button">
+                </a>
+            </div>
         </div>
         <?php if($gallery = get_post_gallery( get_the_ID(), false )){
             if(isset($gallery['ids'])) : ?>
@@ -47,7 +52,14 @@
         <div class="post-meta">
             <ul>
                 <li>
-                    <?php echo get_the_category_list(' ');?>
+                    <?php $categories = get_the_category(); ?>
+                    <?php $separator = ' '; $output = ''; ?>
+                    <?php if ( ! empty( $categories ) ) : ?>
+                        <?php foreach ($categories as $category) : ?>
+                            <?php $output .= "<span>$category->name</span>" ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php echo trim( $output, $separator ); ?>
                 </li>
             </ul>
         </div>
@@ -73,9 +85,16 @@
 
     </div>
     <div class="clearfix"></div>
-    <?php
-    echo get_the_tag_list('<p class="tags">',' ','</p>');
-    ?>
+        <p class="tags">
+            <?php
+            $posttags = get_the_tags();
+            if ($posttags) {
+              foreach($posttags as $tag) {
+                echo "<span>$tag->name</span> "; 
+              }
+            }
+            ?>
+        </p>
     <div class="share-options">
         <h6><?php _e('Share : ','krobs');?></h6>
         <ul>

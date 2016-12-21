@@ -140,7 +140,7 @@
 				width: 50%;
 			    float: left;
 			    height: auto;
-				.shortcuts-icons {
+				.shortcuts-icons { 
 					width: auto;
 				    height: auto;
 				    position: absolute;
@@ -212,8 +212,9 @@
 				    z-index: 99;
 					right: 10px;
     				top: 10px;
-					.home {
+					.home, .share {
 						width: 40px;
+    					margin-bottom: 5px; 
 					}
 				}
 			}
@@ -224,12 +225,12 @@
 						h6 {
 							color: @main-color !important;
 						}
-						a {
+						span {
 							color: #ffffff !important;
 							display: inline-block;
 							background-color: @black;
 							padding: 5px;
-                            margin-bottom: 5px;
+                            margin: 5px;
 						}
 					}
 				}
@@ -257,7 +258,7 @@
 			}
 			.tags {
                 margin: 0 20px;
-                a {
+                span {
                     color: #ffffff !important;
                     display: inline-block;
                     background-color: #151515;
