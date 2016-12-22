@@ -1,11 +1,3 @@
-(function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_ES/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
 jQuery(document).ready(function($) {
     var myElem = document.getElementById('SW_master');
     var downloaded = [];
@@ -73,19 +65,17 @@ jQuery(document).ready(function($) {
 
         // Menu custom click for categories
         var categories = [
-            'en-portada',
+            'noticias-de-honduras',
+            'avances-de-honduras',
+            'noticias-de-politica-en-honduras',
             'sucesos-en-honduras',
-            'homepage-sport',
-            'otros-deportes',
+            'noticias-de-deportes-en-honduras',  
             'noticias-internacionales',
-            'hondurenos-por-el-mundo',
             'opinion',
-            'opiniones-tiempo',
             'periodismo-ciudadanos-honduras',
             'autos'
         ];
         if (localStorage.url_menu) {
-            console.log('extern_menu');
             for (var i = 0; i < categories.length; i++) {
                 var url = localStorage.getItem('url_menu');
                 if (url.indexOf(categories[i]) >= 0) {

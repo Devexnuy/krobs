@@ -990,7 +990,7 @@ class Description_Walker extends Walker_Nav_Menu
  }
 
 function get_home_loop() {
-    $categories = array('29224', '28740', '28743', '28', '28742', '18', '28033', '24', '22', '37543');
+    $categories = array('0', '0', '28745', '28740', '28743', '28742', '28033', '22', '37543');
     $cat_position = $_POST['cat_position'];
     ob_start(); ?>
 

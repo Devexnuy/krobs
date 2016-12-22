@@ -19,7 +19,7 @@ get_header();
 <?php endif; ?>
 <div class="swiper-container">
     <div class="swiper-wrapper" id="SW_master">
-        <?php $categories = array('29224', '28740'); ?>
+        <?php $categories = array('25342', '28741'); ?>
         <?php for ($i = 0; $i < count($categories); $i++) : ?>
             <div class="swiper-slide post-listing">
                 <span id="id_loop" style="display: none"><?php echo $categories[$i]; ?></span>
@@ -91,18 +91,6 @@ get_header();
         </div>
         <div class="swiper-slide post-listing ajax cat-8">
             <span class="cat-num">cat-8</span>
-            <h2 class="loading-home">Cargando...</h2>
-        </div>
-        <div class="swiper-slide post-listing ajax cat-9">
-            <span class="cat-num">cat-9</span>
-            <h2 class="loading-home">Cargando...</h2>
-        </div>
-        <div class="swiper-slide post-listing ajax cat-10">
-            <span class="cat-num">cat-10</span>
-            <h2 class="loading-home">Cargando...</h2>
-        </div>
-        <div class="swiper-slide post-listing ajax cat-11">
-            <span class="cat-num">cat-11</span>
             <h2 class="loading-home">Cargando...</h2>
         </div>
     </div>
