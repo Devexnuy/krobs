@@ -259,13 +259,14 @@ jQuery(function($){
         }
         $(window).scroll(function(){
             button = getButton();
-            if( ! loading && scrollHandling.allow ) {
+            if( ! loading && scrollHandling.allow && button.length) {
                 scrollHandling.allow = false;
                 setTimeout(scrollHandling.reallow, scrollHandling.delay);
                 var offset = $(button).offset().top - $(window).scrollTop();
+                var active_loop = $('#SW_master .swiper-slide-active #id_loop').html();
+                console.log(offset);
                 if(1000 > offset) {
                     loading = true;
-                    var active_loop = $('#SW_master .swiper-slide-active #id_loop').html();
                     if (!froot_loops[active_loop]) {
                         froot_loops[active_loop] = 2;
                     } else {
@@ -279,31 +280,32 @@ jQuery(function($){
                         id_loop: active_loop,
                         query: beloadmore.query
                     };
-                    $.ajax(beloadmore.url, { data: data,
-                        type: "POST",
-                        beforeSend: function() {
-                            $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/plugins/tiempo-mobil/img/ring-alt.gif" alt="h"></p>');
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            console.log(errorThrown);
-                        },
-                        success: function(res) {
-                            $('.loading-text').remove();
-                            if( res.success) {
-                                $('#SW_master .swiper-slide-active .load-more').before( res.data );
-                                $('.krobs-post').addClass('post');
-                                setInterval(customStylepost, 10);
-                                social_lopez();
-                                loading = false;
-                            } else {
-                                console.log(res);
+                    if ($('#id_loop').length && active_loop != undefined) {
+                        $.ajax(beloadmore.url, { data: data,
+                            type: "POST",
+                            beforeSend: function() {
+                                $('#SW_master .swiper-slide-active .load-more').before( '<p class="loading-text"><img width="60" height="auto" src="' + beloadmore.style + '/wp-content/plugins/tiempo-mobil/img/ring-alt.gif" alt="h"></p>');
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            },
+                            success: function(res) {
+                                $('.loading-text').remove();
+                                if( res.success) {
+                                    $('#SW_master .swiper-slide-active .load-more').before( res.data );
+                                    $('.krobs-post').addClass('post');
+                                    setInterval(customStylepost, 10);
+                                    social_lopez();
+                                    setTimeout(function () {loading = false;}, 5000)
+                                } else {
+                                    console.log(res);
+                                }
                             }
-                        }
-                    });
-
-                } else {
-                    // Not offset
-                }
+                        });
+                    } else {
+                        loading = false;
+                    }
+                } 
             }
         });
         function getButton() {

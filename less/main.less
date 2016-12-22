@@ -6,6 +6,7 @@
 }
 // Colors
 @main-color: #007BC9;
+@second-color: #00a8ee;
 @bg-color: #eee;
 @black: #151515;
 // Ajax home
@@ -190,6 +191,22 @@
 		    	/* float: left; */
 		    	margin-top: 0;
 			}
+		}
+		.pagination-holder {
+    		margin: 0;
+    		ul {
+    			li {
+				    margin-bottom: 5px;
+				    a {
+				    	background-color: @main-color;
+				    }
+				    .current, .dots {
+			    	    color: white;
+    					font-weight: bold;
+    					background-color: @second-color;
+				    }
+    			}
+    		}
 		}
 	}
 	#SW_single {

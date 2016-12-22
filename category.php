@@ -25,24 +25,18 @@ get_header();
 	<?php else:?>
 		<div class="span8">
 	<?php endif;?>
-
-    		<?php if(have_posts()) : 
+			<div id="SW_master">
+				<?php if(have_posts()) : 
 				?>
-				<?php while(have_posts()) : the_post(); ?>
-					
-					<?php get_template_part( 'content', ( post_type_supports( get_post_type(), 'post-formats' ) ? get_post_format() : get_post_type() ) ); ?>
-				
-				<?php endwhile; ?>
-
-				<?php krobs_pagination();?>
-				
+					<?php while(have_posts()) : the_post(); ?>
+						
+						<?php get_template_part( 'content', ( post_type_supports( get_post_type(), 'post-formats' ) ? get_post_format() : get_post_type() ) ); ?>
+					<?php endwhile; ?>
+					<?php krobs_pagination();?>
 				<?php else: ?>
-				<?php get_template_part('content','none' ); ?>
-			<?php endif; ?> 
-			
-			
-			
-
+					<?php get_template_part('content','none' ); ?>
+				<?php endif; ?> 	
+			</div>
         </div><!--end .span12||span8 -->
     <?php if($theme_options['blog_layout']==='right_sidebar'):?>
         <div class="span4">
