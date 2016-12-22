@@ -17,10 +17,10 @@
 	    </div><!-- end .wrapper -->
 	</div><!-- End #main -->
     <footer class="main-footer">
-        <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-            <?php dynamic_sidebar( 'sidebar-1' ); ?>
+        <?php if ( is_active_sidebar( 'sidebar-5' ) ) : ?>
+            <?php dynamic_sidebar( 'sidebar-5' ); ?>
         <?php else: ?>
-            <p>Active su widget: Publicidad No. 1.</p>
+            <p>Active su widget: Publicidad No. 5.</p>
         <?php endif; ?>
     </footer>
     <div class="social-lopez" style="display: none;">
