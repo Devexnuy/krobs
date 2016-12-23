@@ -920,39 +920,72 @@ class Description_Walker extends Walker_Nav_Menu
  * @link http://wordpress.stackexchange.com/questions/55259/get-previous-next-posts-by-post-id
  */
 
- function get_previous_post_id() {
-     $post_id = $_POST['post_id'];
-     // Get a global post reference since get_adjacent_post() references it
-     global $post;
-     // Store the existing post object for later so we don't lose it
-     $oldGlobal = $post;
-     // Get the post object for the specified post and place it in the global variable
-     $post = get_post( $post_id );
-     // Get the post object for the previous post
-     $previous_post = get_previous_post(true);
-     // Reset our global object
-     $post = $oldGlobal;
-     ob_start();
-     if (!empty($previous_post)) { ?>
-         <?php $args = array(
+function get_previous_ID($post_id) {
+    // Get a global post reference since get_adjacent_post() references it
+    global $post;
+    // Store the existing post object for later so we don't lose it
+    $oldGlobal = $post;
+    // Get the post object for the specified post and place it in the global variable
+    $post = get_post( $post_id );
+    // Get the post object for the previous post
+    $previous_post = get_previous_post(true);
+    // Reset our global object
+    $post = $oldGlobal;
+
+    return $previous_post;
+}
+
+function get_previous_post_id() {
+    ob_start();
+
+    $stoping = false;
+
+    for ($i=0; $i < 6 ; $i++) { 
+        // The ID of post
+        if (isset($_POST['post_id'])) {
+            $post_id = $_POST['post_id'];
+        } else {
+            $post_id = $the_post_id;
+        }
+        // Previous post if exist
+        $previous_post = get_previous_ID($post_id);
+        // If exist print the post
+        if (!empty($previous_post)) : ?>
+            <?php $args = array(
              'posts_per_page' => 1,
              'p'              => $previous_post->ID
-         );
-         $query = new WP_Query( $args ); ?>
-         <?php if ($query->have_posts()) : ?>
-             <div class="swiper-slide">
-                 <?php while ($query->have_posts()) : $query->the_post(); ?>
-                     <?php get_template_part( 'content', 'single'); ?>
-                 <?php endwhile; ?>
-             </div>
-         <?php endif; ?>
-     <?php } else {
+            );
+            $query = new WP_Query( $args ); ?>
+            <?php if ($query->have_posts()) : ?>
+                <div class="swiper-slide">
+                    <?php while ($query->have_posts()) : $query->the_post(); ?>
+                        <?php if ($i != 5) : ?>
+                            <?php get_template_part( 'content', 'single'); ?>
+                        <?php else: ?>
+                            <?php if ( is_active_sidebar( 'sidebar-4' ) ) : ?>
+                                <?php dynamic_sidebar( 'sidebar-4' ); ?>
+                            <?php else: ?>
+                                <p>Active su widget: Publicidad No. 4.</p>
+                            <?php endif; ?>
+                            <a class="read_more" href="<?php the_permalink(); ?>">Leer más noticias</a>
+                        <?php endif; ?>
+                    <?php endwhile; ?>
+                </div>
+            <?php endif; ?>
+            <?php $the_post_id = $previous_post->ID; ?>
+        <?php else: ?>
+            <?php break; ?>
+        <?php endif;
+        // Unset array
+        if (isset($_POST['post_id'])) {
+            unset($_POST['post_id']);
+        } 
+    }
 
-     }
-     $data = ob_get_clean();
-     wp_send_json_success( $data );
-     wp_die();
- }
+    $data = ob_get_clean();
+    wp_send_json_success( $data );
+    wp_die();
+}
 
  function get_next_post_id() {
      $post_id = $_POST['post_id'];

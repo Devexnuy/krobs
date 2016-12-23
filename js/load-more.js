@@ -10,34 +10,26 @@ jQuery(function($){
     console.log('update');
 
     if($( '#SW_single' ).length) {
-        var first_load = false;
-        var auto_slide = false;
-        var downloaded = [];
+        var loaded = false;
+
         var swiper = new Swiper('.swiper-container', {
             initialSlide: 2,
             observer: true
         });
         swiper.on('onSlidePrevStart', function(swiper) {
-            // Previous
-            nextPost(getPostID());
+            // Next
             $("html, body").animate({ scrollTop: 0 }, "slow");
-            social_lopez_single();
         });
         swiper.on('onSlideNextStart', function(swiper) {
-            // Next
-            prevPost(getPostID());
+            // Previous
             $("html, body").animate({ scrollTop: 0 }, "slow");
-            social_lopez_single();
         });
         var post_id = $('.swiper-slide .single-id').html();
 
-        nextPost(post_id);
-        //prevPost(post_id);
+        prevPost(post_id);
 
         function prevPost(post_id) {
-            if (!downloaded[post_id] == true || first_load == false) {
-                downloaded[post_id] = true;
-                first_load = true;
+            if (!loaded) {
                 var data = {
                     action: 'get_previous_post_id',
                     post_id: post_id
@@ -53,7 +45,6 @@ jQuery(function($){
                     success: function(res) {
                         $('#SW_single .swiper-wrapper').append(res.data);
                         $('.krobs-post').addClass('post');
-                        //swiper.onResize();
                         $(".carousel-wrapper").not('.slick-initialized').slick({
                             swipe: false,
                             dots: true,
@@ -61,53 +52,17 @@ jQuery(function($){
                             slidesToShow: 2,
                             slidesToScroll: 2
                         });
+                        social_lopez_single();
+                        loaded = true;
                     }
                 });
-            } else {
-                console.log('Ya fue cargado.');
-            }
-        }
-
-        function nextPost(post_id) {
-            if (!downloaded[post_id] == true) {
-                downloaded[post_id] = true;
-                var data = {
-                    action: 'get_next_post_id',
-                    post_id: post_id
-                };
-                $.ajax(beloadmore.url, { data: data,
-                    type: "POST",
-                    beforeSend: function() {
-                        // Before send
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                    },
-                    success: function(res) {
-                        $('#SW_single .swiper-wrapper').prepend(res.data);
-                        $('.krobs-post').addClass('post');
-                        swiper.onResize();
-                        $(".carousel-wrapper").not('.slick-initialized').slick({
-                            swipe: false,
-                            dots: true,
-                            infinite: true,
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        });
-                        if (auto_slide == false) {
-                            swiper.slideTo($('.center-slide').index(), 0);
-                            auto_slide = true;
-                        }
-                    }
-                });
-            } else {
-                console.log('Ya fue cargado.');
-            }
+            } 
         }
 
         function getPostID() {
             return $('#SW_single .swiper-slide-active .single-id').html();
         }
+
         function social_lopez_single() {
             // Open modal, set data and share.
             $('.share a').click(function (e) {
